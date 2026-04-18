@@ -231,7 +231,12 @@ const conseillers = [
     transform-style: preserve-3d;
   }
 
-  .flip-card:hover .flip-card-inner,
+  @media (hover: hover) {
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+
   .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg);
   }
@@ -249,15 +254,26 @@ const conseillers = [
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.flip-card').forEach((card) => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('flipped');
+  const cards = document.querySelectorAll<HTMLElement>('.flip-card');
+
+  cards.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      const isFlipped = card.classList.contains('flipped');
+      cards.forEach(c => c.classList.remove('flipped'));
+      if (!isFlipped) card.classList.add('flipped');
+      e.stopPropagation();
     });
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        card.classList.toggle('flipped');
+        const isFlipped = card.classList.contains('flipped');
+        cards.forEach(c => c.classList.remove('flipped'));
+        if (!isFlipped) card.classList.add('flipped');
       }
     });
+  });
+
+  document.addEventListener('click', () => {
+    cards.forEach(c => c.classList.remove('flipped'));
   });
 </script>
