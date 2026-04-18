@@ -257,23 +257,14 @@ const conseillers = [
   const cards = document.querySelectorAll<HTMLElement>('.flip-card');
 
   cards.forEach((card) => {
-    card.addEventListener('click', (e) => {
-      const isFlipped = card.classList.contains('flipped');
-      cards.forEach(c => c.classList.remove('flipped'));
-      if (!isFlipped) card.classList.add('flipped');
-      e.stopPropagation();
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
     });
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const isFlipped = card.classList.contains('flipped');
-        cards.forEach(c => c.classList.remove('flipped'));
-        if (!isFlipped) card.classList.add('flipped');
+        card.classList.toggle('flipped');
       }
     });
-  });
-
-  document.addEventListener('click', () => {
-    cards.forEach(c => c.classList.remove('flipped'));
   });
 </script>
