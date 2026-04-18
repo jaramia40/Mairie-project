@@ -4,7 +4,7 @@ backend:
 
 locale: fr
 
-media_folder: projet mairie/public/images/uploads
+media_folder: public/images/uploads
 public_folder: /images/uploads
 
 collections:
@@ -13,7 +13,7 @@ collections:
     files:
       - name: active
         label: "Alerte en cours"
-        file: projet mairie/src/content/alertes/active.md
+        file: src/content/alertes/active.md
         fields:
           - { label: "Alerte active ?", name: actif, widget: boolean, default: false }
           - { label: "Type", name: type, widget: select, options: [meteo, travaux, coupure] }
@@ -21,7 +21,7 @@ collections:
 
   - name: actualites
     label: "📰 Actualités"
-    folder: projet mairie/src/content/actualites
+    folder: src/content/actualites
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -36,7 +36,7 @@ collections:
 
   - name: associations
     label: "🤝 Associations"
-    folder: projet mairie/src/content/associations
+    folder: src/content/associations
     create: true
     fields:
       - { label: "Nom", name: nom, widget: string }
@@ -47,7 +47,7 @@ collections:
 
   - name: documents
     label: "📄 Comptes-rendus / Documents"
-    folder: projet mairie/src/content/documents
+    folder: src/content/documents
     create: true
     fields:
       - { label: "Titre", name: titre, widget: string }

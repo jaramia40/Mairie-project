@@ -1,5 +1,5 @@
 ---
 actif: false
-type: meteo
-message: test
+type: coupure
+message: ""
 ---
