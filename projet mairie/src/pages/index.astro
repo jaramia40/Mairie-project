@@ -24,7 +24,7 @@ const latest = allActualites
   -->
   <section
     aria-label="Présentation de la commune"
-    style="position: sticky; top: 64px; z-index: 0;"
+    style="position: sticky; top: 96px; z-index: 0;"
   >
     <!-- Seule l'image est sticky — ratio 16/7, pleine largeur, sans déformation -->
     <img
@@ -44,7 +44,7 @@ const latest = allActualites
 
     <!-- Bandeau CTA navy : premier élément à monter sur la bannière -->
     <div style="background: linear-gradient(90deg, #1A2D6B 0%, #111E4A 100%);">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <p class="text-xs font-light tracking-widest uppercase text-gold mb-1 opacity-90">
             285 habitants · Département des Landes · 40090
@@ -53,10 +53,10 @@ const latest = allActualites
             Retrouvez toutes les informations municipales, l'agenda des événements et les services de votre commune.
           </p>
         </div>
-        <div class="flex flex-wrap gap-3 flex-shrink-0">
+        <div class="flex flex-wrap gap-2 sm:gap-3 flex-shrink-0 w-full sm:w-auto">
           <a
             href="/actualites"
-            class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white text-sm font-medium px-5 py-2.5 rounded transition-colors"
+            class="flex-1 sm:flex-none justify-center inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white text-sm font-medium px-5 py-2.5 rounded transition-colors"
             aria-label="Voir toutes les actualités de la commune"
           >
             Nos actualités
@@ -66,7 +66,7 @@ const latest = allActualites
           </a>
           <a
             href="/contact"
-            class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm font-normal px-5 py-2.5 rounded border border-white/20 transition-colors"
+            class="flex-1 sm:flex-none justify-center inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm font-normal px-5 py-2.5 rounded border border-white/20 transition-colors"
             aria-label="Contacter la mairie d'Artassenx"
           >
             Contacter la mairie

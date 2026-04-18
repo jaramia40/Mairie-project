@@ -93,7 +93,11 @@ const icons = [
   aria-label="Raccourcis rapides"
 >
   {links.map((link, i) => (
-    <div role="listitem" class={i > 0 ? 'border-l border-gray-200' : ''}>
+    <div role="listitem" class={
+      i === 1 ? 'border-l border-gray-200' :
+      i === 2 ? 'border-t border-gray-200 sm:border-t-0 sm:border-l border-gray-200' :
+      i === 3 ? 'border-l border-t border-gray-200 sm:border-t-0' : ''
+    }>
       <a
         href={link.href}
         target={link.external ? '_blank' : undefined}
