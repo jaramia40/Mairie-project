@@ -85,6 +85,9 @@ const {
       document.addEventListener('astro:page-load', initAnimations);
     </script>
     <script>
+      window.netlifyIdentity && window.netlifyIdentity.init({
+        APIUrl: 'https://artassenx-mairie.netlify.app/.netlify/identity'
+      });
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', (user) => {
           if (!user) {
