@@ -2,6 +2,8 @@
 title: "Compte-rendu du conseil municipal du 5 avril 2026"
 date: 2026-04-08
 categorie: conseil
+image: /images/actualites/conseil-municipal.jpg
+imageAlt: "Salle de conseil municipal en séance"
 extrait: "Le conseil s'est réuni en séance ordinaire. Ordre du jour : budget 2026, réfection voirie, questions diverses."
 publie: true
 ---

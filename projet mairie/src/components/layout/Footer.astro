@@ -16,24 +16,24 @@ const year = new Date().getFullYear();
           {locale === 'en' ? 'Town hall' : 'Mairie d\'Artassenx'}
         </h2>
         <address class="not-italic font-light text-sm leading-relaxed text-white/80">
-          <p>Lieu-dit Artassenx</p>
+          <p>431 route de Bascons</p>
           <p>40090 Artassenx</p>
           <p class="mt-3">
             <a
-              href="tel:+33558000000"
+              href="tel:+33558440399"
               class="hover:text-gold-light transition-colors"
-              aria-label="Appeler la mairie au 05 58 00 00 00"
+              aria-label="Appeler la mairie au 05 58 44 03 99"
             >
-              05 58 00 00 00
+              05 58 44 03 99
             </a>
           </p>
           <p>
             <a
-              href="mailto:mairie.artassenx@wanadoo.fr"
+              href="mailto:mairie@artassenx.fr"
               class="hover:text-gold-light transition-colors"
               aria-label="Écrire à la mairie"
             >
-              mairie.artassenx@wanadoo.fr
+              mairie@artassenx.fr
             </a>
           </p>
         </address>
@@ -47,10 +47,22 @@ const year = new Date().getFullYear();
         <ul class="font-light text-sm leading-relaxed text-white/80 space-y-1.5" role="list">
           <li>
             <span class="font-medium text-white">
-              {locale === 'en' ? 'Monday – Friday' : 'Lundi – Vendredi'}
+              {locale === 'en' ? 'Monday – Wednesday' : 'Lundi – Mercredi'}
             </span>
           </li>
-          <li>9h00 – 12h00</li>
+          <li>{locale === 'en' ? '9:00 am – 12:00 pm / 1:00 pm – 5:00 pm' : '9h00 – 12h00 / 13h00 – 17h00'}</li>
+          <li>
+            <span class="font-medium text-white">
+              {locale === 'en' ? 'Thursday' : 'Jeudi'}
+            </span>
+          </li>
+          <li>{locale === 'en' ? 'Closed (public)' : 'Fermé au public'}</li>
+          <li>
+            <span class="font-medium text-white">
+              {locale === 'en' ? 'Friday' : 'Vendredi'}
+            </span>
+          </li>
+          <li>{locale === 'en' ? '9:00 am – 12:00 pm' : '9h00 – 12h00'}</li>
           <li>{locale === 'en' ? 'Closed Saturday and Sunday' : 'Samedi et dimanche fermé'}</li>
         </ul>
       </div>
@@ -102,10 +114,25 @@ const year = new Date().getFullYear();
 
   <!-- Barre de bas de footer -->
   <div class="bg-navy-dark border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p class="font-light text-xs text-white/50 text-center sm:text-left">
         © {year} Commune d'Artassenx — {locale === 'en' ? 'All rights reserved' : 'Tous droits réservés'}
       </p>
+
+      <!-- Lien Facebook -->
+      <a
+        href="https://www.facebook.com/profile.php?id=61551035578584"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Page Facebook de la commune d'Artassenx (nouvelle fenêtre)"
+        class="flex items-center gap-2 text-xs font-normal text-white/50 hover:text-white transition-colors group"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-[#1877F2] group-hover:scale-110 transition-transform">
+          <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+        </svg>
+        {locale === 'en' ? 'Follow us on Facebook' : 'Nous suivre sur Facebook'}
+      </a>
+
       <p class="font-light text-xs text-white/40 text-center">
         Propulsé par <span class="text-gold">Astro</span> + <span class="text-gold">Decap CMS</span>
       </p>

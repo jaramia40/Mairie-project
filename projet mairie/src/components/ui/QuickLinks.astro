@@ -101,24 +101,25 @@ const icons = [
         aria-label={link.ariaLabel}
         class="flex flex-col items-center justify-center gap-2.5 px-3 py-5 bg-white hover:bg-amber-50 transition-colors group text-center"
       >
-        <span class="group-hover:scale-110 transition-transform duration-200">
+        <span class="group-hover:scale-125 transition-transform duration-200">
           <Fragment set:html={icons[i]} />
         </span>
         <span class="text-[11px] font-normal text-gray-700 leading-tight group-hover:text-navy transition-colors">
           {link.label}
         </span>
-        {link.external && (
-          <svg
-            aria-hidden="true"
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            fill="none"
-            class="text-gray-300 group-hover:text-gold transition-colors"
-          >
-            <path d="M2 8L8 2M5 2H8V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        )}
+        <svg
+          aria-hidden="true"
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          class="text-gray-200 group-hover:text-gold transition-colors"
+        >
+          {link.external
+            ? <path d="M2 8L8 2M5 2H8V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            : <path d="M2 5H8M5.5 2.5L8 5L5.5 7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          }
+        </svg>
       </a>
     </div>
   ))}

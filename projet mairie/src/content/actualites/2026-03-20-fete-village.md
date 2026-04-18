@@ -2,6 +2,8 @@
 title: "Fête du village 2026 — programme et inscriptions"
 date: 2026-03-20
 categorie: evenement
+image: /images/actualites/fete-village.jpg
+imageAlt: "Fête de village animée avec foule en plein air"
 extrait: "La fête annuelle du village aura lieu le 14 juillet 2026. Repas champêtre, bal et animations pour toute la famille."
 publie: true
 ---

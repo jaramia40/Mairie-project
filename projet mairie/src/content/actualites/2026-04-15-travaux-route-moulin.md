@@ -2,6 +2,8 @@
 title: "Réfection de la route du Moulin — début des travaux le 3 mai"
 date: 2026-04-15
 categorie: travaux
+image: /images/actualites/travaux-voirie.jpg
+imageAlt: "Travaux de réfection de voirie"
 extrait: "Les travaux de voirie débuteront le 3 mai pour une durée de 3 semaines. Une déviation sera mise en place."
 publie: true
 ---

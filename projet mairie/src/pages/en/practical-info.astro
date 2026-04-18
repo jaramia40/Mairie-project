@@ -31,17 +31,17 @@ import Layout from '../../layouts/Layout.astro';
           <caption class="sr-only">Artassenx town hall opening hours</caption>
           <tbody>
             {[
-              ['Monday', '9:00 am – 12:00 pm'],
-              ['Tuesday', '9:00 am – 12:00 pm'],
-              ['Wednesday', '9:00 am – 12:00 pm'],
-              ['Thursday', '9:00 am – 12:00 pm'],
+              ['Monday', '9:00 am – 12:00 pm  |  1:00 pm – 5:00 pm'],
+              ['Tuesday', '9:00 am – 12:00 pm  |  1:00 pm – 5:00 pm'],
+              ['Wednesday', '9:00 am – 12:00 pm  |  1:00 pm – 5:00 pm'],
+              ['Thursday', 'Closed (public)'],
               ['Friday', '9:00 am – 12:00 pm'],
               ['Saturday', 'Closed'],
               ['Sunday', 'Closed'],
             ].map(([day, hours], i) => (
               <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                 <td class="px-5 py-3 font-medium text-navy w-36">{day}</td>
-                <td class={`px-5 py-3 font-light ${hours === 'Closed' ? 'text-gray-400' : 'text-gray-700'}`}>
+                <td class={`px-5 py-3 font-light ${hours.startsWith('Closed') ? 'text-gray-400' : 'text-gray-700'}`}>
                   {hours}
                 </td>
               </tr>

@@ -39,17 +39,17 @@ import Layout from '../layouts/Layout.astro';
           <caption class="sr-only">Horaires d'ouverture de la mairie d'Artassenx</caption>
           <tbody>
             {[
-              ['Lundi', '9h00 – 12h00'],
-              ['Mardi', '9h00 – 12h00'],
-              ['Mercredi', '9h00 – 12h00'],
-              ['Jeudi', '9h00 – 12h00'],
+              ['Lundi', '9h00 – 12h00  |  13h00 – 17h00'],
+              ['Mardi', '9h00 – 12h00  |  13h00 – 17h00'],
+              ['Mercredi', '9h00 – 12h00  |  13h00 – 17h00'],
+              ['Jeudi', 'Fermé au public'],
               ['Vendredi', '9h00 – 12h00'],
               ['Samedi', 'Fermé'],
               ['Dimanche', 'Fermé'],
             ].map(([jour, heures], i) => (
               <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                 <td class="px-5 py-3 font-medium text-navy w-36">{jour}</td>
-                <td class={`px-5 py-3 font-light ${heures === 'Fermé' ? 'text-gray-400' : 'text-gray-700'}`}>
+                <td class={`px-5 py-3 font-light ${heures.startsWith('Fermé') ? 'text-gray-400' : 'text-gray-700'}`}>
                   {heures}
                 </td>
               </tr>
