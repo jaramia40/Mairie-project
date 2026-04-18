@@ -1,0 +1,92 @@
+---
+interface Props {
+  nom: string;
+  description: string;
+  contact?: string;
+  email?: string;
+  actif: boolean;
+}
+
+const { nom, description, contact, email, actif } = Astro.props;
+
+// Couleur dérivée du hash du nom
+function hashColor(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 55%, 45%)`;
+}
+
+const pastilleColor = hashColor(nom);
+const initials = nom
+  .split(' ')
+  .filter((w) => w.length > 2)
+  .slice(0, 2)
+  .map((w) => w[0].toUpperCase())
+  .join('');
+---
+
+<div
+  data-animate
+  class="bg-white rounded-card border border-gray-100 p-5 flex flex-col gap-3 hover:border-gold/30 hover:shadow-sm transition-all"
+  style="border-radius: 12px; border-width: 0.5px;"
+>
+  <!-- En-tête : pastille + nom + statut -->
+  <div class="flex items-start gap-3">
+    <div
+      class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-semibold"
+      style={`background-color: ${pastilleColor};`}
+      aria-hidden="true"
+    >
+      {initials || nom[0].toUpperCase()}
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-sm font-medium text-navy leading-tight">
+        {nom}
+      </h3>
+      {!actif && (
+        <span class="text-[10px] font-normal text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded mt-1 inline-block">
+          Inactive
+        </span>
+      )}
+    </div>
+  </div>
+
+  <!-- Description -->
+  <p class="text-[12px] font-light leading-relaxed flex-1" style="color: #6B6B68;">
+    {description}
+  </p>
+
+  <!-- Coordonnées -->
+  {(contact || email) && (
+    <div class="pt-2 border-t border-gray-100 flex flex-col gap-1.5">
+      {contact && (
+        <a
+          href={`tel:${contact.replace(/\s/g, '')}`}
+          class="flex items-center gap-2 text-[11px] font-normal text-navy hover:text-gold transition-colors"
+          aria-label={`Appeler ${nom} au ${contact}`}
+        >
+          <svg aria-hidden="true" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M4 1.5C4 1.5 3 3 3 4.5C3 7.5 5.5 10 8.5 10C10 10 11.5 9 11.5 9L9.5 7.5L8.5 8.5C7.5 8 5 5.5 4.5 4.5L5.5 3.5L4 1.5Z" stroke="#1A2D6B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {contact}
+        </a>
+      )}
+      {email && (
+        <a
+          href={`mailto:${email}`}
+          class="flex items-center gap-2 text-[11px] font-normal text-navy hover:text-gold transition-colors truncate"
+          aria-label={`Écrire à ${nom}`}
+        >
+          <svg aria-hidden="true" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <rect x="1.5" y="3" width="10" height="7" rx="1.5" stroke="#1A2D6B" stroke-width="1.2"/>
+            <path d="M1.5 4L6.5 7.5L11.5 4" stroke="#1A2D6B" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          {email}
+        </a>
+      )}
+    </div>
+  )}
+</div>

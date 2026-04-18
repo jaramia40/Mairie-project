@@ -1,0 +1,117 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  categorie: 'travaux' | 'conseil' | 'info' | 'evenement';
+  extrait: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+const { title, date, categorie, extrait, image, imageAlt } = Astro.props;
+
+const dateFormatted = date.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const dateISO = date.toISOString();
+
+const badgeStyles: Record<string, string> = {
+  travaux: 'bg-amber-50 text-amber-800',
+  conseil: 'bg-blue-50 text-navy',
+  info: 'bg-gray-100 text-gray-700',
+  evenement: 'bg-emerald-50 text-emerald-800',
+};
+
+const badgeLabels: Record<string, string> = {
+  travaux: 'Travaux',
+  conseil: 'Conseil',
+  info: 'Info',
+  evenement: 'Événement',
+};
+---
+
+<Layout
+  title={`${title} — Artassenx`}
+  description={extrait}
+  image={image}
+  type="article"
+  jsonLdArticle={{ headline: title, datePublished: dateISO }}
+>
+  <article class="max-w-2xl mx-auto px-4 py-10 sm:px-6">
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="mb-6">
+      <ol class="flex items-center gap-2 text-xs font-normal text-gray-500">
+        <li>
+          <a href="/" class="hover:text-gold transition-colors">Accueil</a>
+        </li>
+        <li aria-hidden="true" class="text-gray-300">/</li>
+        <li>
+          <a href="/actualites" class="hover:text-gold transition-colors">Actualités</a>
+        </li>
+        <li aria-hidden="true" class="text-gray-300">/</li>
+        <li class="text-gray-700 truncate max-w-[160px]" aria-current="page">
+          {title}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Header article -->
+    <header class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <span class={`text-xs font-medium px-2.5 py-1 rounded ${badgeStyles[categorie]}`}>
+          {badgeLabels[categorie]}
+        </span>
+        <time
+          datetime={dateISO}
+          class="text-[11px] font-light text-gray-400"
+        >
+          {dateFormatted}
+        </time>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-semibold text-navy leading-tight mb-4">
+        {title}
+      </h1>
+
+      <p class="text-base font-light text-gray-600 leading-relaxed">
+        {extrait}
+      </p>
+    </header>
+
+    <!-- Image principale -->
+    {image && (
+      <div class="mb-8 rounded-card overflow-hidden">
+        <img
+          src={image}
+          alt={imageAlt ?? ''}
+          class="w-full h-56 sm:h-72 object-cover"
+          loading="eager"
+        />
+      </div>
+    )}
+
+    <!-- Contenu Markdown -->
+    <div class="prose text-gray-800 text-sm leading-relaxed">
+      <slot />
+    </div>
+
+    <!-- Bouton retour -->
+    <div class="mt-10 pt-6 border-t border-gray-100">
+      <a
+        href="/actualites"
+        aria-label="Retour à la liste des actualités"
+        class="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold transition-colors"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Retour aux actualités
+      </a>
+    </div>
+  </article>
+</Layout>

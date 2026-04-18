@@ -1,0 +1,141 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  categorie: 'travaux' | 'conseil' | 'info' | 'evenement';
+  extrait: string;
+  slug: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+const { title, date, categorie, extrait, slug, image, imageAlt } = Astro.props;
+
+const dateFormatted = date.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const badgeStyles: Record<string, { bg: string; text: string }> = {
+  travaux:   { bg: '#FEF3C7', text: '#92400E' },
+  conseil:   { bg: '#E8ECF6', text: '#1A2D6B' },
+  info:      { bg: '#F3F4F6', text: '#374151' },
+  evenement: { bg: '#D1FAE5', text: '#065F46' },
+};
+
+const badgeLabels: Record<string, string> = {
+  travaux: 'Travaux',
+  conseil: 'Conseil',
+  info: 'Info',
+  evenement: 'Événement',
+};
+
+const placeholderColors: Record<string, string> = {
+  travaux:   '#FEF3C7',
+  conseil:   '#E8ECF6',
+  info:      '#F3F4F6',
+  evenement: '#D1FAE5',
+};
+
+const style = badgeStyles[categorie];
+const placeholder = placeholderColors[categorie];
+---
+
+<article
+  data-animate
+  data-categorie={categorie}
+  class="group relative bg-white rounded-card border border-gray-100 overflow-hidden card-hover"
+  style="border-radius: 12px;"
+>
+  <a
+    href={`/actualites/${slug}`}
+    aria-label={`Lire l'article : ${title}`}
+    class="flex flex-col h-full text-current no-underline"
+    tabindex="0"
+  >
+    <!-- Image ou placeholder coloré -->
+    <div
+      class="h-36 w-full overflow-hidden flex-shrink-0"
+      style={`background-color: ${placeholder};`}
+    >
+      {image ? (
+        <img
+          src={image}
+          alt={imageAlt ?? ''}
+          class="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center opacity-30">
+          <svg aria-hidden="true" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="5" y="5" width="30" height="30" rx="4" stroke="#1A2D6B" stroke-width="1.5"/>
+            <path d="M5 28L13 20L19 26L27 18L35 28" stroke="#1A2D6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="14" r="3" stroke="#1A2D6B" stroke-width="1.5"/>
+          </svg>
+        </div>
+      )}
+    </div>
+
+    <!-- Contenu -->
+    <div class="flex flex-col flex-1 p-4 gap-2">
+      <!-- Badge + date -->
+      <div class="flex items-center justify-between gap-2">
+        <span
+          class="inline-block text-[10px] font-medium px-2 py-0.5 rounded"
+          style={`background-color: ${style.bg}; color: ${style.text};`}
+        >
+          {badgeLabels[categorie]}
+        </span>
+        <time
+          datetime={date.toISOString()}
+          class="text-[11px] font-light flex-shrink-0"
+          style="color: #6B6B68;"
+        >
+          {dateFormatted}
+        </time>
+      </div>
+
+      <!-- Titre -->
+      <h3 class="text-sm font-medium text-navy leading-snug line-clamp-2 group-hover:text-gold transition-colors">
+        {title}
+      </h3>
+
+      <!-- Extrait -->
+      <p class="text-[12px] font-light leading-relaxed line-clamp-3" style="color: #6B6B68;">
+        {extrait}
+      </p>
+
+      <!-- Lire la suite -->
+      <div class="mt-auto pt-2 flex items-center gap-1 text-[11px] font-medium text-gold">
+        <span>Lire l'article</span>
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card-hover {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(26, 45, 107, 0.10);
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

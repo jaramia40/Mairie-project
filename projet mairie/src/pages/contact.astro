@@ -1,0 +1,263 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact — Commune d'Artassenx"
+  description="Contactez la mairie d'Artassenx : formulaire en ligne, téléphone, adresse et horaires d'ouverture."
+  canonical="https://artassenx.fr/contact/"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+    <!-- En-tête -->
+    <header class="mb-10" data-animate>
+      <nav aria-label="Fil d'Ariane" class="mb-4">
+        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
+          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-gray-600">Contact</li>
+        </ol>
+      </nav>
+      <h1 class="text-3xl font-semibold text-navy mb-2">Contact</h1>
+      <p class="text-sm font-light max-w-xl" style="color: #6B6B68;">
+        Nous répondons aux courriels dans un délai de 3 jours ouvrés. Pour les urgences, privilégiez le téléphone.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <!-- Formulaire -->
+      <div class="lg:col-span-3" data-animate>
+        <div id="form-success" role="alert" aria-live="polite" class="hidden mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-sm font-normal text-emerald-800">
+          Votre message a bien été envoyé. Nous vous répondrons dans les meilleurs délais.
+        </div>
+
+        <form
+          id="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          novalidate
+          class="flex flex-col gap-5"
+          aria-label="Formulaire de contact de la mairie"
+        >
+          <!-- Honeypot anti-spam -->
+          <p style="display:none" aria-hidden="true">
+            <label>Ne pas remplir : <input name="bot-field" tabindex="-1" /></label>
+          </p>
+          <input type="hidden" name="form-name" value="contact" />
+
+          <!-- Nom -->
+          <div class="flex flex-col gap-1.5">
+            <label for="nom" class="text-sm font-medium text-navy">
+              Nom complet <span aria-hidden="true" class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              required
+              aria-required="true"
+              aria-describedby="nom-error"
+              autocomplete="name"
+              class="border border-gray-200 rounded px-3 py-2.5 text-sm font-normal text-gray-800 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+              placeholder="Votre nom et prénom"
+            />
+            <span id="nom-error" role="alert" class="text-xs text-red-600 hidden" aria-live="polite"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="flex flex-col gap-1.5">
+            <label for="email" class="text-sm font-medium text-navy">
+              Adresse email <span aria-hidden="true" class="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              aria-required="true"
+              aria-describedby="email-error"
+              autocomplete="email"
+              class="border border-gray-200 rounded px-3 py-2.5 text-sm font-normal text-gray-800 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors"
+              placeholder="votre@email.fr"
+            />
+            <span id="email-error" role="alert" class="text-xs text-red-600 hidden" aria-live="polite"></span>
+          </div>
+
+          <!-- Objet -->
+          <div class="flex flex-col gap-1.5">
+            <label for="objet" class="text-sm font-medium text-navy">
+              Objet de votre message
+            </label>
+            <select
+              id="objet"
+              name="objet"
+              class="border border-gray-200 rounded px-3 py-2.5 text-sm font-normal text-gray-800 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 bg-white transition-colors"
+            >
+              <option value="general">Question générale</option>
+              <option value="voirie">Signalement voirie</option>
+              <option value="association">Association</option>
+              <option value="urbanisme">Urbanisme / Permis</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="flex flex-col gap-1.5">
+            <label for="message" class="text-sm font-medium text-navy">
+              Message <span aria-hidden="true" class="text-red-500">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              aria-required="true"
+              aria-describedby="message-error message-counter"
+              maxlength="1000"
+              rows={6}
+              class="border border-gray-200 rounded px-3 py-2.5 text-sm font-normal text-gray-800 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-colors resize-y min-h-[120px]"
+              placeholder="Décrivez votre demande..."
+            ></textarea>
+            <div class="flex items-center justify-between">
+              <span id="message-error" role="alert" class="text-xs text-red-600 hidden" aria-live="polite"></span>
+              <span id="message-counter" class="text-xs font-light text-gray-400 ml-auto">0 / 1000</span>
+            </div>
+          </div>
+
+          <!-- RGPD notice -->
+          <p class="text-xs font-light text-gray-500 leading-relaxed">
+            Les informations recueillies sont utilisées uniquement pour traiter votre demande. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez le DPO à l'adresse de la mairie.
+          </p>
+
+          <button
+            type="submit"
+            class="self-start inline-flex items-center gap-2 bg-navy hover:bg-navy-light text-white text-sm font-medium px-6 py-2.5 rounded transition-colors"
+            aria-label="Envoyer le formulaire de contact"
+          >
+            Envoyer le message
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Coordonnées -->
+      <aside class="lg:col-span-2" aria-label="Coordonnées de la mairie" data-animate>
+        <div class="bg-gray-50 rounded-card p-6 border border-gray-100 sticky top-24">
+          <h2 class="text-sm font-medium text-navy mb-5">Coordonnées</h2>
+
+          <div class="flex flex-col gap-4 text-xs font-light text-gray-700">
+            <div class="flex items-start gap-3">
+              <svg aria-hidden="true" class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9 8 14.5 8 14.5C8 14.5 12.5 9 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" stroke="#1A2D6B" stroke-width="1.3"/>
+                <circle cx="8" cy="6" r="1.5" stroke="#1A2D6B" stroke-width="1.3"/>
+              </svg>
+              <address class="not-italic leading-relaxed">
+                Mairie d'Artassenx<br/>
+                Lieu-dit Artassenx<br/>
+                40090 Artassenx
+              </address>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <svg aria-hidden="true" class="flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M5 2C5 2 4 3.5 4 5C4 8.5 7.5 12 11 12C12.5 12 14 11 14 11L12 9.5L10.5 10.5C9.5 10 6 6.5 5.5 5.5L6.5 4L5 2Z" stroke="#1A2D6B" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <a href="tel:+33558000000" class="hover:text-gold transition-colors" aria-label="Appeler la mairie">
+                05 58 00 00 00
+              </a>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <svg aria-hidden="true" class="flex-shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="4" width="12" height="8" rx="1.5" stroke="#1A2D6B" stroke-width="1.3"/>
+                <path d="M2 5L8 9L14 5" stroke="#1A2D6B" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <a href="mailto:mairie.artassenx@wanadoo.fr" class="hover:text-gold transition-colors break-all" aria-label="Écrire un email à la mairie">
+                mairie.artassenx@wanadoo.fr
+              </a>
+            </div>
+          </div>
+
+          <div class="mt-5 pt-5 border-t border-gray-200">
+            <h3 class="text-xs font-medium text-navy mb-2">Horaires</h3>
+            <p class="text-xs font-light text-gray-600 leading-relaxed">
+              Lundi – Vendredi<br/>
+              9h00 – 12h00
+            </p>
+          </div>
+
+          <!-- Urgences -->
+          <div id="urgences" class="mt-5 pt-5 border-t border-gray-200 scroll-mt-20">
+            <h3 class="text-xs font-medium text-navy mb-3">Urgences</h3>
+            <div class="flex flex-col gap-1.5">
+              {[['SAMU', '15'], ['Pompiers', '18'], ['Gendarmerie', '17'], ['Urgences', '112']].map(([l, n]) => (
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-light text-gray-600">{l}</span>
+                  <a href={`tel:${n}`} class="font-semibold text-navy hover:text-gold transition-colors" aria-label={`Appeler le ${l} : ${n}`}>{n}</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMsg = document.getElementById('form-success') as HTMLElement;
+  const messageArea = document.getElementById('message') as HTMLTextAreaElement;
+  const counter = document.getElementById('message-counter') as HTMLElement;
+
+  // Compteur de caractères
+  messageArea?.addEventListener('input', () => {
+    counter.textContent = `${messageArea.value.length} / 1000`;
+  });
+
+  // Soumission AJAX Netlify
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validation simple
+    let valid = true;
+    const fields: Array<{ id: string; errorId: string; msg: string }> = [
+      { id: 'nom', errorId: 'nom-error', msg: 'Veuillez saisir votre nom.' },
+      { id: 'email', errorId: 'email-error', msg: 'Veuillez saisir une adresse email valide.' },
+      { id: 'message', errorId: 'message-error', msg: 'Veuillez saisir votre message.' },
+    ];
+
+    fields.forEach(({ id, errorId, msg }) => {
+      const input = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
+      const error = document.getElementById(errorId) as HTMLElement;
+      if (!input.value.trim() || (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
+        error.textContent = msg;
+        error.classList.remove('hidden');
+        input.classList.add('border-red-400');
+        valid = false;
+      } else {
+        error.classList.add('hidden');
+        input.classList.remove('border-red-400');
+      }
+    });
+
+    if (!valid) return;
+
+    try {
+      const data = new FormData(form);
+      const body = new URLSearchParams(data as unknown as Record<string, string>).toString();
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      form.style.display = 'none';
+      successMsg.classList.remove('hidden');
+      successMsg.focus();
+    } catch {
+      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
+    }
+  });
+</script>

@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PdfItem from '../components/ui/PdfItem.astro';
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('documents');
+const sorted = allDocs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const byYear = sorted.reduce<Record<number, typeof sorted>>((acc, doc) => {
+  const y = doc.data.annee;
+  if (!acc[y]) acc[y] = [];
+  acc[y].push(doc);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<Layout
+  title="Conseil municipal — Commune d'Artassenx"
+  description="Comptes-rendus des séances du conseil municipal d'Artassenx. Documents PDF téléchargeables classés par année."
+  canonical="https://artassenx.fr/conseil-municipal/"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+    <!-- En-tête -->
+    <header class="mb-10" data-animate>
+      <nav aria-label="Fil d'Ariane" class="mb-4">
+        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
+          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-gray-600">Conseil municipal</li>
+        </ol>
+      </nav>
+      <h1 class="text-3xl font-semibold text-navy mb-2">Conseil municipal</h1>
+      <p class="text-sm font-light max-w-xl" style="color: #6B6B68;">
+        Retrouvez les comptes-rendus des séances du conseil municipal, publiés conformément aux obligations légales de transparence.
+      </p>
+    </header>
+
+    <!-- Documents par année -->
+    {years.length > 0 ? (
+      years.map((year) => (
+        <section class="mb-10" aria-labelledby={`year-${year}`} data-animate>
+          <h2
+            id={`year-${year}`}
+            class="text-base font-medium text-navy mb-4 pb-2 border-b border-gray-200"
+          >
+            {year}
+          </h2>
+          <div class="flex flex-col gap-3">
+            {byYear[year].map((doc) => (
+              <PdfItem
+                titre={doc.data.titre}
+                date={doc.data.date}
+                fichier={doc.data.fichier}
+                taille={doc.data.taille}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    ) : (
+      <p class="text-sm font-light text-gray-500 py-12 text-center">
+        Aucun document disponible pour le moment.
+      </p>
+    )}
+
+    <!-- Note légale -->
+    <div
+      class="mt-8 p-4 rounded-lg bg-blue-50 border border-blue-100"
+      data-animate
+      role="note"
+    >
+      <p class="text-xs font-light text-navy/80 leading-relaxed">
+        Conformément à l'article L. 2121-25 du Code général des collectivités territoriales, les comptes-rendus des séances du conseil municipal sont publiés dans les huit jours suivant la séance.
+      </p>
+    </div>
+  </div>
+</Layout>

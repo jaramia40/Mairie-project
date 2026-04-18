@@ -1,0 +1,91 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical: string;
+  type?: string;
+  locale?: string;
+  jsonLdArticle?: {
+    headline: string;
+    datePublished: string;
+  };
+}
+
+const {
+  title,
+  description,
+  image = '/images/og-default.jpg',
+  canonical,
+  type = 'website',
+  locale = 'fr',
+  jsonLdArticle,
+} = Astro.props;
+
+const siteUrl = 'https://artassenx.fr';
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentOrganization',
+  'name': "Commune d'Artassenx",
+  'url': siteUrl,
+  'address': {
+    '@type': 'PostalAddress',
+    'addressLocality': 'Artassenx',
+    'postalCode': '40090',
+    'addressCountry': 'FR',
+  },
+  'telephone': '+33558000000',
+};
+
+const articleSchema = jsonLdArticle
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      'headline': jsonLdArticle.headline,
+      'datePublished': jsonLdArticle.datePublished,
+      'author': {
+        '@type': 'Organization',
+        'name': "Mairie d'Artassenx",
+      },
+    }
+  : null;
+---
+
+<!-- Primary -->
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+<link rel="apple-touch-icon" href="/favicon-192.png" />
+<meta name="theme-color" content="#1A2D6B" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'fr_FR'} />
+<meta property="og:site_name" content="Commune d'Artassenx" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Title -->
+<title>{title}</title>
+
+<!-- JSON-LD : Organisation gouvernementale -->
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+<!-- JSON-LD : Article (si page actualité) -->
+{articleSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+)}

@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'fr' } = Astro.props;
+
+let alerte = null;
+try {
+  const alertes = await getCollection('alertes');
+  const active = alertes.find((a) => a.data.actif === true);
+  if (active) alerte = active.data;
+} catch {
+  // Pas d'alerte active
+}
+
+const icons: Record<string, string> = {
+  meteo: '⛈',
+  travaux: '🚧',
+  coupure: '💧',
+};
+---
+
+{alerte && (
+  <div
+    id="alert-banner"
+    role="alert"
+    aria-live="polite"
+    aria-atomic="true"
+    class="bg-amber-50 border-b-2 border-amber-400 px-4 py-3"
+  >
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 flex-1 min-w-0">
+        <span aria-hidden="true" class="text-xl flex-shrink-0">
+          {icons[alerte.type] ?? '⚠️'}
+        </span>
+        <p class="text-sm font-normal text-amber-900 leading-snug">
+          {alerte.message}
+        </p>
+      </div>
+      <button
+        id="close-alert-btn"
+        type="button"
+        aria-label={locale === 'en' ? 'Close alert' : "Fermer l'alerte"}
+        class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-amber-100 transition-colors text-amber-700 hover:text-amber-900"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+)}
+
+<script>
+  const banner = document.getElementById('alert-banner');
+  const closeBtn = document.getElementById('close-alert-btn');
+
+  if (banner && closeBtn) {
+    // Vérifier si déjà fermée dans cette session
+    if (sessionStorage.getItem('alert-dismissed') === 'true') {
+      banner.style.display = 'none';
+    }
+
+    closeBtn.addEventListener('click', () => {
+      banner.style.display = 'none';
+      sessionStorage.setItem('alert-dismissed', 'true');
+    });
+  }
+</script>

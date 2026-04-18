@@ -1,0 +1,57 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: fr
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: alertes
+    label: "🚨 Alerte urgente"
+    files:
+      - name: active
+        label: "Alerte en cours"
+        file: src/content/alertes/active.md
+        fields:
+          - { label: "Alerte active ?", name: actif, widget: boolean, default: false }
+          - { label: "Type", name: type, widget: select, options: [meteo, travaux, coupure] }
+          - { label: "Message", name: message, widget: string }
+
+  - name: actualites
+    label: "📰 Actualités"
+    folder: src/content/actualites
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titre", name: title, widget: string }
+      - { label: "Date", name: date, widget: datetime }
+      - { label: "Catégorie", name: categorie, widget: select, options: [travaux, conseil, info, evenement] }
+      - { label: "Image", name: image, widget: image, required: false }
+      - { label: "Texte alternatif image", name: imageAlt, widget: string, required: false }
+      - { label: "Extrait (160 car. max)", name: extrait, widget: string }
+      - { label: "Publié ?", name: publie, widget: boolean, default: true }
+      - { label: "Contenu", name: body, widget: markdown }
+
+  - name: associations
+    label: "🤝 Associations"
+    folder: src/content/associations
+    create: true
+    fields:
+      - { label: "Nom", name: nom, widget: string }
+      - { label: "Description", name: description, widget: text }
+      - { label: "Contact téléphone", name: contact, widget: string, required: false }
+      - { label: "Email", name: email, widget: string, required: false }
+      - { label: "Active ?", name: actif, widget: boolean, default: true }
+
+  - name: documents
+    label: "📄 Comptes-rendus / Documents"
+    folder: src/content/documents
+    create: true
+    fields:
+      - { label: "Titre", name: titre, widget: string }
+      - { label: "Date de séance", name: date, widget: datetime }
+      - { label: "Année", name: annee, widget: number }
+      - { label: "Fichier PDF", name: fichier, widget: file }
+      - { label: "Taille (ex: 2.4 Mo)", name: taille, widget: string, required: false }

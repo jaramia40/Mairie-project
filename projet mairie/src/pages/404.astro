@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page introuvable — Commune d'Artassenx"
+  description="La page que vous recherchez n'existe pas ou a été déplacée."
+  canonical="https://artassenx.fr/404"
+>
+  <div class="min-h-[60vh] flex items-center justify-center px-4 py-20">
+    <div class="text-center max-w-md" data-animate>
+      <!-- Illustration -->
+      <div class="mb-8 flex items-center justify-center">
+        <div class="relative">
+          <div class="text-8xl font-semibold text-navy/10 select-none" aria-hidden="true">404</div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <svg aria-hidden="true" width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="#1A2D6B" stroke-width="2" stroke-dasharray="6 4"/>
+              <path d="M20 30L28 38L40 22" stroke="#C47A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+              <path d="M22 22L38 38M38 22L22 38" stroke="#1A2D6B" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="text-2xl font-semibold text-navy mb-3">Page introuvable</h1>
+      <p class="text-sm font-light text-gray-600 leading-relaxed mb-8">
+        La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'adresse saisie ou retournez à l'accueil.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center gap-2 bg-navy hover:bg-navy-light text-white text-sm font-medium px-5 py-2.5 rounded transition-colors"
+          aria-label="Retourner à la page d'accueil"
+        >
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7L7 1L13 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 1V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-700 hover:border-gold hover:text-gold text-sm font-normal px-5 py-2.5 rounded transition-colors"
+          aria-label="Contacter la mairie"
+        >
+          Contacter la mairie
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

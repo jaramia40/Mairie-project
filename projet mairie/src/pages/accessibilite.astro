@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Déclaration d'accessibilité — Commune d'Artassenx"
+  description="Déclaration de conformité RGAA du site officiel de la commune d'Artassenx."
+  canonical="https://artassenx.fr/accessibilite/"
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+    <header class="mb-8" data-animate>
+      <nav aria-label="Fil d'Ariane" class="mb-4">
+        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
+          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-gray-600">Accessibilité</li>
+        </ol>
+      </nav>
+      <h1 class="text-3xl font-semibold text-navy">Déclaration d'accessibilité</h1>
+      <p class="text-xs font-light mt-2 text-gray-500">Mise à jour : avril 2026</p>
+    </header>
+
+    <div class="prose text-gray-700 text-sm">
+
+      <h2>État de conformité</h2>
+      <p>
+        Le site <strong>artassenx.fr</strong> est <strong>partiellement conforme</strong> au référentiel général d'amélioration de l'accessibilité (RGAA), version 4.1.
+      </p>
+
+      <h2>Résultats des tests</h2>
+      <p>
+        L'audit de conformité réalisé en interne révèle que :
+      </p>
+      <ul>
+        <li><strong>Critères conformes</strong> : 87 %</li>
+        <li><strong>Critères non conformes</strong> : 8 %</li>
+        <li><strong>Critères non applicables</strong> : 5 %</li>
+      </ul>
+
+      <h2>Contenus non accessibles</h2>
+      <p>Les contenus listés ci-dessous ne sont pas accessibles pour les raisons suivantes :</p>
+      <h3>Non-conformités</h3>
+      <ul>
+        <li>Certains documents PDF présents sur le site ne sont pas encore balisés pour les lecteurs d'écran.</li>
+        <li>Les vidéos éventuelles ne disposent pas toujours de sous-titres.</li>
+      </ul>
+      <h3>Dérogations pour charge disproportionnée</h3>
+      <ul>
+        <li>Les documents PDF historiques (antérieurs à 2020) ne seront pas mis en accessibilité, leur remédiation représentant une charge disproportionnée.</li>
+      </ul>
+
+      <h2>Établissement de cette déclaration d'accessibilité</h2>
+      <p>
+        Cette déclaration a été établie le <strong>17 avril 2026</strong> par la Commune d'Artassenx.
+      </p>
+      <p>
+        <strong>Technologies utilisées pour la réalisation du site</strong> : HTML5, CSS3, JavaScript, Astro, Tailwind CSS.
+      </p>
+      <p>
+        <strong>Agents utilisateurs et technologies d'assistance utilisés pour vérifier l'accessibilité</strong> :
+        NVDA + Firefox, VoiceOver + Safari (iOS), clavier seul.
+      </p>
+
+      <h2>Amélioration et contact</h2>
+      <p>
+        Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter la mairie pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.
+      </p>
+      <ul>
+        <li>
+          <strong>Email</strong> :
+          <a href="mailto:mairie.artassenx@wanadoo.fr" aria-label="Écrire à la mairie pour signaler un problème d'accessibilité">
+            mairie.artassenx@wanadoo.fr
+          </a>
+        </li>
+        <li><strong>Téléphone</strong> : <a href="tel:+33558000000" aria-label="Appeler la mairie">05 58 00 00 00</a></li>
+        <li><strong>Courrier</strong> : Mairie d'Artassenx, 40090 Artassenx</li>
+      </ul>
+
+      <h2>Voie de recours</h2>
+      <p>
+        Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d'accessibilité qui vous empêche d'accéder à un contenu ou à un des services du portail et vous n'avez pas obtenu de réponse satisfaisante.
+      </p>
+      <p>
+        Vous pouvez :
+      </p>
+      <ul>
+        <li>
+          Écrire un message au <a href="https://formulaire.defenseurdesdroits.fr" target="_blank" rel="noopener noreferrer" aria-label="Formulaire du Défenseur des droits (nouvelle fenêtre)">Défenseur des droits</a>
+        </li>
+        <li>Contacter le délégué du Défenseur des droits dans votre région</li>
+        <li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) : Défenseur des droits — Libre réponse 71120 — 75342 Paris CEDEX 07</li>
+      </ul>
+    </div>
+  </div>
+</Layout>

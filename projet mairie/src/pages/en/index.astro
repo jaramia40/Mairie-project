@@ -1,0 +1,120 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ActualiteCard from '../../components/ui/ActualiteCard.astro';
+import QuickLinks from '../../components/ui/QuickLinks.astro';
+import { getCollection } from 'astro:content';
+
+const allActualites = await getCollection('actualites');
+const latest = allActualites
+  .filter((a) => a.data.publie)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<Layout
+  title="Welcome to Artassenx — Official website"
+  description="Official website of Artassenx village (Landes, 40090). News, municipal services, associations and local life."
+  canonical="https://artassenx.fr/en/"
+  locale="en"
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden" aria-label="Village presentation">
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(135deg, #1A2D6B 0%, #111E4A 60%, #0D1530 100%);"
+      aria-hidden="true"
+    ></div>
+    <div class="absolute inset-0 opacity-20" aria-hidden="true">
+      <img src="/images/banniere.jpg" alt="" class="w-full h-full object-cover" loading="eager" />
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-white">
+      <p class="text-sm font-light tracking-widest uppercase text-gold mb-4 opacity-90">
+        285 inhabitants · Landes Department
+      </p>
+      <h1 class="text-4xl sm:text-5xl font-semibold leading-tight mb-5 max-w-2xl">
+        Welcome to Artassenx
+      </h1>
+      <p class="text-lg font-light leading-relaxed max-w-xl text-white/80 mb-10">
+        Find all municipal information, event calendar and services for our village.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/en/contact"
+          class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white text-sm font-medium px-5 py-2.5 rounded transition-colors"
+          aria-label="Contact the town hall"
+        >
+          Contact us
+        </a>
+        <a
+          href="/en/practical-info"
+          class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm font-normal px-5 py-2.5 rounded border border-white/20 transition-colors"
+          aria-label="Practical information about Artassenx"
+        >
+          Practical info
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK LINKS -->
+  <section class="bg-white border-b border-gray-100" aria-labelledby="quicklinks-en-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <h2 id="quicklinks-en-heading" class="sr-only">Quick links</h2>
+      <QuickLinks locale="en" />
+    </div>
+  </section>
+
+  <!-- LATEST NEWS -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-14" aria-labelledby="news-en-heading">
+    <div class="flex items-center justify-between mb-8" data-animate>
+      <div>
+        <h2 id="news-en-heading" class="text-2xl font-semibold text-navy">Latest news</h2>
+        <p class="text-sm font-light mt-1" style="color: #6B6B68;">Information and events from our village</p>
+      </div>
+    </div>
+    {latest.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {latest.map((article) => (
+          <ActualiteCard
+            title={article.data.title}
+            date={article.data.date}
+            categorie={article.data.categorie}
+            extrait={article.data.extrait}
+            slug={article.slug}
+            image={article.data.image}
+            imageAlt={article.data.imageAlt}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-sm font-light text-gray-500">No news available at the moment.</p>
+    )}
+  </section>
+
+  <!-- VILLAGE INFO -->
+  <section class="py-12 px-4 sm:px-6" style="background-color: #F5F5F3;" aria-labelledby="info-en-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="info-en-heading" class="text-xl font-semibold text-navy mb-6" data-animate>About Artassenx</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="bg-white rounded-card p-5 border border-gray-100" data-animate>
+          <h3 class="text-sm font-medium text-navy mb-2">Town hall</h3>
+          <p class="text-xs font-light text-gray-600 leading-relaxed">
+            Lieu-dit Artassenx<br/>40090 Artassenx<br/>Tel. 05 58 00 00 00
+          </p>
+        </div>
+        <div class="bg-white rounded-card p-5 border border-gray-100" data-animate>
+          <h3 class="text-sm font-medium text-navy mb-2">Opening hours</h3>
+          <p class="text-xs font-light text-gray-600 leading-relaxed">
+            Monday – Friday<br/>9:00 am – 12:00 pm
+          </p>
+        </div>
+        <div class="bg-white rounded-card p-5 border border-gray-100" data-animate>
+          <h3 class="text-sm font-medium text-navy mb-2">Population</h3>
+          <p class="text-xs font-light text-gray-600 leading-relaxed">
+            285 inhabitants<br/>Arrondissement of Mont-de-Marsan<br/>Landes department
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

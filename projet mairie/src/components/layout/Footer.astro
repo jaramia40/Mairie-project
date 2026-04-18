@@ -1,0 +1,114 @@
+---
+interface Props {
+  locale?: string;
+}
+const { locale = 'fr' } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer role="contentinfo" class="bg-navy text-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+
+      <!-- Colonne 1 : Coordonnées -->
+      <div>
+        <h2 class="text-[10px] font-medium uppercase tracking-widest text-gold mb-4">
+          {locale === 'en' ? 'Town hall' : 'Mairie d\'Artassenx'}
+        </h2>
+        <address class="not-italic font-light text-sm leading-relaxed text-white/80">
+          <p>Lieu-dit Artassenx</p>
+          <p>40090 Artassenx</p>
+          <p class="mt-3">
+            <a
+              href="tel:+33558000000"
+              class="hover:text-gold-light transition-colors"
+              aria-label="Appeler la mairie au 05 58 00 00 00"
+            >
+              05 58 00 00 00
+            </a>
+          </p>
+          <p>
+            <a
+              href="mailto:mairie.artassenx@wanadoo.fr"
+              class="hover:text-gold-light transition-colors"
+              aria-label="Écrire à la mairie"
+            >
+              mairie.artassenx@wanadoo.fr
+            </a>
+          </p>
+        </address>
+      </div>
+
+      <!-- Colonne 2 : Horaires -->
+      <div>
+        <h2 class="text-[10px] font-medium uppercase tracking-widest text-gold mb-4">
+          {locale === 'en' ? 'Opening hours' : 'Horaires d\'ouverture'}
+        </h2>
+        <ul class="font-light text-sm leading-relaxed text-white/80 space-y-1.5" role="list">
+          <li>
+            <span class="font-medium text-white">
+              {locale === 'en' ? 'Monday – Friday' : 'Lundi – Vendredi'}
+            </span>
+          </li>
+          <li>9h00 – 12h00</li>
+          <li>{locale === 'en' ? 'Closed Saturday and Sunday' : 'Samedi et dimanche fermé'}</li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Liens légaux -->
+      <div>
+        <h2 class="text-[10px] font-medium uppercase tracking-widest text-gold mb-4">
+          {locale === 'en' ? 'Legal' : 'Informations légales'}
+        </h2>
+        <ul class="font-light text-sm leading-relaxed space-y-2" role="list">
+          <li>
+            <a
+              href={locale === 'en' ? '/mentions-legales' : '/mentions-legales'}
+              class="text-white/70 hover:text-gold-light transition-colors"
+            >
+              {locale === 'en' ? 'Legal notices' : 'Mentions légales'}
+            </a>
+          </li>
+          <li>
+            <a
+              href="/accessibilite"
+              class="text-white/70 hover:text-gold-light transition-colors"
+            >
+              {locale === 'en' ? 'Accessibility' : 'Accessibilité'}
+            </a>
+          </li>
+          <li>
+            <a
+              href={locale === 'en' ? '/en/contact' : '/contact'}
+              class="text-white/70 hover:text-gold-light transition-colors"
+            >
+              {locale === 'en' ? 'Contact' : 'Contact'}
+            </a>
+          </li>
+          <li>
+            <a
+              href="/admin/"
+              class="text-white/70 hover:text-gold-light transition-colors"
+              aria-label="Accès espace administration (élus)"
+            >
+              {locale === 'en' ? 'Admin' : 'Espace élus'}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Barre de bas de footer -->
+  <div class="bg-navy-dark border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="font-light text-xs text-white/50 text-center sm:text-left">
+        © {year} Commune d'Artassenx — {locale === 'en' ? 'All rights reserved' : 'Tous droits réservés'}
+      </p>
+      <p class="font-light text-xs text-white/40 text-center">
+        Propulsé par <span class="text-gold">Astro</span> + <span class="text-gold">Decap CMS</span>
+      </p>
+    </div>
+  </div>
+</footer>

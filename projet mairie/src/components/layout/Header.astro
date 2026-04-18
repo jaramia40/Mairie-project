@@ -1,0 +1,260 @@
+---
+interface Props {
+  locale?: string;
+  currentPath?: string;
+}
+
+const { locale = 'fr', currentPath = '/' } = Astro.props;
+
+const navFr = [
+  { label: 'Accueil', href: '/' },
+  { label: 'Mairie', href: '/conseil-municipal' },
+  { label: 'Actualités', href: '/actualites' },
+  { label: 'Associations', href: '/associations' },
+  { label: 'Vie pratique', href: '/vie-pratique' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const navEn = [
+  { label: 'Home', href: '/en' },
+  { label: 'News', href: '/en' },
+  { label: 'Associations', href: '/en/associations' },
+  { label: 'Practical info', href: '/en/practical-info' },
+  { label: 'Contact', href: '/en/contact' },
+];
+
+const navItems = locale === 'en' ? navEn : navFr;
+
+const altLangHref = locale === 'en' ? '/' : '/en';
+const altLangLabel = locale === 'en' ? 'FR' : 'EN';
+const currentLangLabel = locale === 'en' ? 'EN' : 'FR';
+
+function isActive(href: string): boolean {
+  if (href === '/' || href === '/en') return currentPath === href;
+  return currentPath.startsWith(href);
+}
+---
+
+<header
+  class="sticky top-0 z-50 bg-white border-b-2 border-gold"
+  style="box-shadow: 0 1px 4px rgba(26,45,107,0.06);"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo + identité -->
+      <a
+        href={locale === 'en' ? '/en' : '/'}
+        class="flex items-center gap-3 min-w-0"
+        aria-label="Accueil — Commune d'Artassenx"
+      >
+        <img
+          src="/images/blason.png"
+          alt="Blason de la commune d'Artassenx"
+          width="40"
+          height="40"
+          class="h-10 w-10 object-contain flex-shrink-0"
+        />
+        <div class="min-w-0">
+          <div class="font-medium text-navy text-sm sm:text-base leading-tight truncate">
+            Commune d'Artassenx
+          </div>
+          <div class="font-light text-xs text-navy leading-tight" style="opacity:0.5;">
+            Landes · 40090
+          </div>
+        </div>
+      </a>
+
+      <!-- Navigation desktop + sélecteur langue -->
+      <div class="hidden md:flex items-center gap-1">
+        <nav role="navigation" aria-label="Navigation principale">
+          <ul class="flex items-center gap-0.5" role="list">
+            {navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  class={`
+                    px-3 py-2 rounded text-sm font-normal transition-colors
+                    ${isActive(item.href)
+                      ? 'text-navy font-medium bg-blue-50'
+                      : 'text-gray-700 hover:text-navy hover:bg-gray-50'
+                    }
+                  `}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <!-- Sélecteur langue -->
+        <div class="flex items-center gap-1 ml-4 pl-4 border-l border-gray-200">
+          <span class="text-[12px] font-normal text-navy" aria-current="true">
+            {currentLangLabel}
+          </span>
+          <span class="text-gray-300 text-xs">|</span>
+          <a
+            href={altLangHref}
+            hreflang={locale === 'en' ? 'fr' : 'en'}
+            class="text-[12px] font-normal text-gray-400 hover:text-navy transition-colors"
+            aria-label={`Passer en ${altLangLabel === 'EN' ? 'anglais' : 'français'}`}
+          >
+            {altLangLabel}
+          </a>
+        </div>
+      </div>
+
+      <!-- Bouton hamburger mobile -->
+      <button
+        id="hamburger-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Ouvrir le menu"
+        class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 rounded focus-visible:outline-gold"
+      >
+        <span class="hamburger-bar block w-6 h-0.5 bg-navy transition-all duration-200" aria-hidden="true"></span>
+        <span class="hamburger-bar block w-6 h-0.5 bg-navy transition-all duration-200" aria-hidden="true"></span>
+        <span class="hamburger-bar block w-6 h-0.5 bg-navy transition-all duration-200" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Overlay mobile -->
+<div
+  id="mobile-overlay"
+  class="fixed inset-0 bg-navy/40 backdrop-blur-sm z-40 hidden"
+  aria-hidden="true"
+></div>
+
+<!-- Drawer mobile -->
+<nav
+  id="mobile-menu"
+  role="navigation"
+  aria-label="Navigation principale mobile"
+  class="fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-200 ease-in-out"
+  aria-hidden="true"
+>
+  <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+    <span class="font-medium text-navy text-sm">Menu</span>
+    <button
+      id="close-menu-btn"
+      type="button"
+      aria-label="Fermer le menu"
+      class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-600 hover:text-navy"
+    >
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <ul class="py-4 px-3" role="list">
+    {navItems.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class={`
+            flex items-center px-4 py-3 rounded-lg text-sm font-normal transition-colors mb-0.5
+            ${isActive(item.href)
+              ? 'bg-blue-50 text-navy font-medium'
+              : 'text-gray-700 hover:bg-gray-50 hover:text-navy'
+            }
+          `}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Sélecteur langue dans le drawer -->
+  <div class="px-7 py-3 border-t border-gray-100 flex items-center gap-2 text-xs font-normal">
+    <span class="text-navy">{currentLangLabel}</span>
+    <span class="text-gray-300">|</span>
+    <a
+      href={altLangHref}
+      hreflang={locale === 'en' ? 'fr' : 'en'}
+      class="text-gray-400 hover:text-navy transition-colors"
+      aria-label={`Passer en ${altLangLabel === 'EN' ? 'anglais' : 'français'}`}
+    >
+      {altLangLabel}
+    </a>
+  </div>
+</nav>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburger-btn') as HTMLButtonElement;
+  const closeMenuBtn = document.getElementById('close-menu-btn') as HTMLButtonElement;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+  const overlay = document.getElementById('mobile-overlay') as HTMLElement;
+
+  function getFocusableElements(): HTMLElement[] {
+    return Array.from(
+      mobileMenu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  function openMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    overlay.classList.remove('hidden');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    hamburgerBtn.setAttribute('aria-label', 'Fermer le menu');
+    document.body.style.overflow = 'hidden';
+
+    const focusable = getFocusableElements();
+    if (focusable.length) focusable[0].focus();
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.add('translate-x-full');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    overlay.classList.add('hidden');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    hamburgerBtn.setAttribute('aria-label', 'Ouvrir le menu');
+    document.body.style.overflow = '';
+    hamburgerBtn.focus();
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  closeMenuBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Fermeture sur Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hamburgerBtn.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+    }
+  });
+
+  // Trap focus dans le drawer
+  mobileMenu.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = getFocusableElements();
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+</script>
