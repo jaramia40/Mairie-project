@@ -1,5 +1,5 @@
 ---
 actif: true
-type: coupure
-message: test
+type: meteo
+message: "orange violent "
 ---
