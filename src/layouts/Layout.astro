@@ -84,14 +84,21 @@ const {
 
       document.addEventListener('astro:page-load', initAnimations);
     </script>
-    <script>
-      window.netlifyIdentity && window.netlifyIdentity.init({
-        APIUrl: 'https://artassenx-mairie.netlify.app/.netlify/identity'
-      });
+    <script is:inline>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
+        window.netlifyIdentity.init({
+          APIUrl: 'https://artassenx-mairie.netlify.app/.netlify/identity'
+        });
+
+        // Ouvre la modale si lien d'invitation ou de récupération
+        var hash = window.location.hash;
+        if (hash && (hash.includes('invite_token') || hash.includes('recovery_token'))) {
+          window.netlifyIdentity.open();
+        }
+
+        window.netlifyIdentity.on('init', function(user) {
           if (!user) {
-            window.netlifyIdentity.on('login', () => {
+            window.netlifyIdentity.on('login', function() {
               document.location.href = '/admin/';
             });
           }
