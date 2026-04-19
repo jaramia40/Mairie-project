@@ -1,5 +1,5 @@
 ---
-actif: false
+actif: true
 type: coupure
-message: ""
+message: test
 ---
