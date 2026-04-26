@@ -1,12 +1,11 @@
 ---
 interface Props {
-  locale?: string;
   currentPath?: string;
 }
 
-const { locale = 'fr', currentPath = '/' } = Astro.props;
+const { currentPath = '/' } = Astro.props;
 
-const navFr = [
+const navItems = [
   { label: 'Accueil', href: '/' },
   { label: 'Mairie', href: '/conseil-municipal' },
   { label: 'Actualités', href: '/actualites' },
@@ -15,22 +14,8 @@ const navFr = [
   { label: 'Contact', href: '/contact' },
 ];
 
-const navEn = [
-  { label: 'Home', href: '/en' },
-  { label: 'News', href: '/en' },
-  { label: 'Associations', href: '/en/associations' },
-  { label: 'Practical info', href: '/en/practical-info' },
-  { label: 'Contact', href: '/en/contact' },
-];
-
-const navItems = locale === 'en' ? navEn : navFr;
-
-const altLangHref = locale === 'en' ? '/' : '/en';
-const altLangLabel = locale === 'en' ? 'FR' : 'EN';
-const currentLangLabel = locale === 'en' ? 'EN' : 'FR';
-
 function isActive(href: string): boolean {
-  if (href === '/' || href === '/en') return currentPath === href;
+  if (href === '/') return currentPath === href;
   return currentPath.startsWith(href);
 }
 ---
@@ -43,7 +28,7 @@ function isActive(href: string): boolean {
     <div class="flex items-center justify-between h-28">
       <!-- Logo + identité -->
       <a
-        href={locale === 'en' ? '/en' : '/'}
+        href="/"
         class="flex items-center gap-3 min-w-0"
         aria-label="Accueil — Commune d'Artassenx"
       >
@@ -65,7 +50,7 @@ function isActive(href: string): boolean {
         </div>
       </a>
 
-      <!-- Navigation desktop + sélecteur langue -->
+      <!-- Navigation desktop -->
       <div class="hidden lg:flex items-center gap-1">
         <nav role="navigation" aria-label="Navigation principale">
           <ul class="flex items-center gap-0.5" role="list">
@@ -88,22 +73,6 @@ function isActive(href: string): boolean {
             ))}
           </ul>
         </nav>
-
-        <!-- Sélecteur langue -->
-        <div class="flex items-center gap-1 ml-4 pl-4 border-l border-gray-200">
-          <span class="text-[12px] font-normal text-navy" aria-current="true">
-            {currentLangLabel}
-          </span>
-          <span class="text-gray-300 text-xs">|</span>
-          <a
-            href={altLangHref}
-            hreflang={locale === 'en' ? 'fr' : 'en'}
-            class="text-[12px] font-normal text-gray-400 hover:text-navy transition-colors"
-            aria-label={`Passer en ${altLangLabel === 'EN' ? 'anglais' : 'français'}`}
-          >
-            {altLangLabel}
-          </a>
-        </div>
       </div>
 
       <!-- Bouton hamburger mobile -->
@@ -172,19 +141,6 @@ function isActive(href: string): boolean {
     ))}
   </ul>
 
-  <!-- Sélecteur langue dans le drawer -->
-  <div class="px-7 py-3 border-t border-gray-100 flex items-center gap-2 text-xs font-normal">
-    <span class="text-navy">{currentLangLabel}</span>
-    <span class="text-gray-300">|</span>
-    <a
-      href={altLangHref}
-      hreflang={locale === 'en' ? 'fr' : 'en'}
-      class="text-gray-400 hover:text-navy transition-colors"
-      aria-label={`Passer en ${altLangLabel === 'EN' ? 'anglais' : 'français'}`}
-    >
-      {altLangLabel}
-    </a>
-  </div>
 </nav>
 
 <script>

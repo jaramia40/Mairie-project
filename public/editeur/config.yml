@@ -38,6 +38,9 @@ collections:
     label: "🤝 Associations"
     folder: src/content/associations
     create: true
+    identifier_field: nom
+    slug: "{{slug}}"
+    summary: "{{nom}}"
     fields:
       - { label: "Nom", name: nom, widget: string }
       - { label: "Description", name: description, widget: text }

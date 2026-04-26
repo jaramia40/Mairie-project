@@ -18,7 +18,7 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
 const maire = {
   nom: 'Ludovic Raffin',
   role: 'Maire',
-  photo: '/images/elus/ludovic-raffin.jpg' as string | null,
+  photo: '/images/elus/ludovic-raffin.png' as string | null,
   description: 'Élu maire lors des municipales de mars 2026, il conduit la politique municipale avec pour priorités la voirie, le cadre de vie et le lien social entre habitants.',
 };
 
@@ -26,26 +26,26 @@ const adjoints = [
   {
     nom: 'Éveline Lalanne',
     role: '1ère adjointe au maire',
-    photo: '/images/elus/evelinne-lalanne.jpg' as string | null,
+    photo: '/images/elus/evelinne-lalanne.png' as string | null,
     description: 'Chargée des affaires scolaires, de la petite enfance et de la vie associative. Elle assure la continuité du service public en l\'absence du maire.',
   },
   {
     nom: 'Dominique Vergara',
     role: '2ème adjoint au maire',
-    photo: null as string | null,
+    photo: '/images/elus/dominique-vergara.png' as string | null,
     description: 'Délégué aux travaux, à la voirie et au patrimoine communal. Il supervise les chantiers et l\'entretien des équipements municipaux.',
   },
 ];
 
 const conseillers = [
-  { nom: 'Jean-Marc Castaing', f: false, photo: null as string | null, description: 'Conseiller municipal engagé dans le développement économique local et le soutien aux entreprises artisanales de la commune.' },
-  { nom: 'Isabelle Barrault', f: true, photo: null as string | null, description: 'Impliquée dans la vie culturelle et le patrimoine local, elle œuvre pour la valorisation de l\'histoire d\'Artassenx.' },
-  { nom: 'Damien de Watrigant', f: false, photo: null as string | null, description: 'Référent environnement et agriculture, il contribue à la transition écologique de la commune et au dialogue avec le monde agricole.' },
-  { nom: 'Coralie Arnaud', f: true, photo: null as string | null, description: 'Investie dans les questions de solidarité et d\'aide aux personnes âgées, elle anime le lien intergénérationnel au sein du village.' },
-  { nom: 'Thierry Soubaigné', f: false, photo: '/images/elus/thierry-soubaigne.jpg' as string | null, description: 'Chargé du suivi des finances communales et de la gestion du budget, il veille à la bonne utilisation des deniers publics.' },
-  { nom: 'Béatrice Fantin', f: true, photo: null as string | null, description: 'Déléguée à la communication municipale, elle assure l\'information des habitants et la modernisation des outils numériques.' },
-  { nom: 'Jérémy Coelho', f: false, photo: null as string | null, description: 'Représentant les jeunes de la commune, il porte des projets sportifs et anime les initiatives destinées à la jeunesse.' },
-  { nom: 'Ornella Garcia', f: true, photo: null as string | null, description: 'Engagée dans l\'urbanisme et le cadre de vie, elle veille au respect des règles d\'urbanisme et à l\'embellissement du village.' },
+  { nom: 'Jean-Marc Castaing', f: false, photo: '/images/elus/jean-marc-castaning.png' as string | null, description: 'Conseiller municipal engagé dans le développement économique local et le soutien aux entreprises artisanales de la commune.' },
+  { nom: 'Isabelle Barrault', f: true, photo: '/images/elus/isa.png' as string | null, description: 'Impliquée dans la vie culturelle et le patrimoine local, elle œuvre pour la valorisation de l\'histoire d\'Artassenx.' },
+  { nom: 'Damien de Watrigant', f: false, photo: '/images/elus/damien-dewatrigant.png' as string | null, description: 'Référent environnement et agriculture, il contribue à la transition écologique de la commune et au dialogue avec le monde agricole.' },
+  { nom: 'Coralie Arnaud', f: true, photo: '/images/elus/coralie-arnaud.png' as string | null, description: 'Investie dans les questions de solidarité et d\'aide aux personnes âgées, elle anime le lien intergénérationnel au sein du village.' },
+  { nom: 'Thierry Soubaigné', f: false, photo: '/images/elus/thierry-soubaigne.png' as string | null, description: 'Chargé du suivi des finances communales et de la gestion du budget, il veille à la bonne utilisation des deniers publics.' },
+  { nom: 'Béatrice Fantin', f: true, photo: '/images/elus/beatrice-fantin.png' as string | null, description: 'Déléguée à la communication municipale, elle assure l\'information des habitants et la modernisation des outils numériques.' },
+  { nom: 'Jérémy Coelho', f: false, photo: '/images/elus/jeremy-coelho.png' as string | null, description: 'Représentant les jeunes de la commune, il porte des projets sportifs et anime les initiatives destinées à la jeunesse.' },
+  { nom: 'Ornella Garcia', f: true, photo: '/images/elus/ornella-garcia.png' as string | null, description: 'Engagée dans l\'urbanisme et le cadre de vie, elle veille au respect des règles d\'urbanisme et à l\'embellissement du village.' },
 ];
 ---
 
@@ -82,9 +82,9 @@ const conseillers = [
             <!-- Recto -->
             <div class="flip-face flip-front rounded-xl border border-gray-100 bg-white shadow-sm flex flex-col items-center justify-center gap-3 p-6">
               {maire.photo ? (
-                <img src={maire.photo} alt={`Portrait de ${maire.nom}`} class="w-20 h-20 rounded-full object-cover object-top border-2 border-gray-100" />
+                <img src={maire.photo} alt={`Portrait de ${maire.nom}`} class="w-20 h-20 sm:w-32 sm:h-32 rounded-full object-cover object-top border-2 border-gray-100" />
               ) : (
-                <div class="w-20 h-20 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
+                <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M4 28c0-6 5-10 12-10s12 4 12 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 </div>
               )}
@@ -116,9 +116,9 @@ const conseillers = [
             <div class="flip-card-inner">
               <div class="flip-face flip-front rounded-xl border border-gray-100 bg-white shadow-sm flex flex-col items-center justify-center gap-3 p-6">
                 {a.photo ? (
-                  <img src={a.photo} alt={`Portrait de ${a.nom}`} class="w-16 h-16 rounded-full object-cover object-top border-2 border-gray-100" />
+                  <img src={a.photo} alt={`Portrait de ${a.nom}`} class="w-16 h-16 sm:w-32 sm:h-32 rounded-full object-cover object-top border-2 border-gray-100" />
                 ) : (
-                  <div class="w-16 h-16 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
+                  <div class="w-16 h-16 sm:w-32 sm:h-32 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M3 21c0-4 4-7 9-7s9 3 9 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
                   </div>
                 )}
@@ -150,9 +150,9 @@ const conseillers = [
             <div class="flip-card-inner">
               <div class="flip-face flip-front rounded-xl border border-gray-100 bg-white shadow-sm flex flex-col items-center justify-center gap-3 p-4">
                 {c.photo ? (
-                  <img src={c.photo} alt={`Portrait de ${c.nom}`} class="w-14 h-14 rounded-full object-cover object-top border-2 border-gray-100" />
+                  <img src={c.photo} alt={`Portrait de ${c.nom}`} class="w-14 h-14 sm:w-32 sm:h-32 rounded-full object-cover object-top border-2 border-gray-100" />
                 ) : (
-                  <div class="w-14 h-14 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
+                  <div class="w-14 h-14 sm:w-32 sm:h-32 rounded-full flex items-center justify-center text-gray-300 border-2 border-dashed border-gray-200" style="background:#F5F5F3;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M3 21c0-4 4-7 9-7s9 3 9 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
                   </div>
                 )}

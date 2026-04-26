@@ -16,7 +16,6 @@ interface Props {
   image?: string;
   canonical?: string;
   type?: string;
-  locale?: string;
   jsonLdArticle?: {
     headline: string;
     datePublished: string;
@@ -29,42 +28,37 @@ const {
   image,
   canonical,
   type = 'website',
-  locale = 'fr',
   jsonLdArticle,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <SEOHead
       title={title}
       description={description}
       image={image}
       canonical={canonical ?? Astro.url.href}
       type={type}
-      locale={locale}
       jsonLdArticle={jsonLdArticle}
     />
     <ViewTransitions />
   </head>
   <body class="font-sans bg-white text-gray-900 antialiased flex flex-col min-h-screen">
     <!-- Skip link RGAA -->
-    <a href="#main-content" class="skip-link">
-      {locale === 'en' ? 'Skip to main content' : 'Aller au contenu principal'}
-    </a>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
-    <AlertBanner locale={locale} />
-    <Header locale={locale} currentPath={Astro.url.pathname} />
+    <AlertBanner />
+    <Header currentPath={Astro.url.pathname} />
 
     <main id="main-content" role="main" tabindex="-1" class="flex-1">
       <slot />
     </main>
 
-    <Footer locale={locale} />
+    <Footer />
 
     <script>
       function initAnimations() {
@@ -83,27 +77,6 @@ const {
       }
 
       document.addEventListener('astro:page-load', initAnimations);
-    </script>
-    <script is:inline>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.init({
-          APIUrl: 'https://artassenx-mairie.netlify.app/.netlify/identity'
-        });
-
-        // Ouvre la modale si lien d'invitation ou de récupération
-        var hash = window.location.hash;
-        if (hash && (hash.includes('invite_token') || hash.includes('recovery_token'))) {
-          window.netlifyIdentity.open();
-        }
-
-        window.netlifyIdentity.on('init', function(user) {
-          if (!user) {
-            window.netlifyIdentity.on('login', function() {
-              document.location.href = '/admin/';
-            });
-          }
-        });
-      }
     </script>
   </body>
 </html>

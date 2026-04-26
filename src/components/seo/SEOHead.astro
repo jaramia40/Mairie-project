@@ -5,7 +5,6 @@ interface Props {
   image?: string;
   canonical: string;
   type?: string;
-  locale?: string;
   jsonLdArticle?: {
     headline: string;
     datePublished: string;
@@ -18,12 +17,15 @@ const {
   image = '/images/og-default.jpg',
   canonical,
   type = 'website',
-  locale = 'fr',
   jsonLdArticle,
 } = Astro.props;
 
 const siteUrl = 'https://artassenx.fr';
 const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+
+function safeJsonLd(obj: unknown): string {
+  return JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
+}
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -70,7 +72,7 @@ const articleSchema = jsonLdArticle
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImage} />
-<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'fr_FR'} />
+<meta property="og:locale" content="fr_FR" />
 <meta property="og:site_name" content="Commune d'Artassenx" />
 
 <!-- Twitter Card -->
@@ -83,9 +85,9 @@ const articleSchema = jsonLdArticle
 <title>{title}</title>
 
 <!-- JSON-LD : Organisation gouvernementale -->
-<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script is:inline type="application/ld+json" set:html={safeJsonLd(orgSchema)} />
 
 <!-- JSON-LD : Article (si page actualité) -->
 {articleSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script is:inline type="application/ld+json" set:html={safeJsonLd(articleSchema)} />
 )}

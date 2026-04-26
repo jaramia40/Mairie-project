@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /editeur/
 Sitemap: https://artassenx.fr/sitemap-index.xml

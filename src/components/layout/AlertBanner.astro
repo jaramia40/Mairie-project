@@ -1,11 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 
-interface Props {
-  locale?: string;
-}
-const { locale = 'fr' } = Astro.props;
-
 let alerte = null;
 try {
   const alertes = await getCollection('alertes');
@@ -42,7 +37,7 @@ const icons: Record<string, string> = {
       <button
         id="close-alert-btn"
         type="button"
-        aria-label={locale === 'en' ? 'Close alert' : "Fermer l'alerte"}
+        aria-label="Fermer l'alerte"
         class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-amber-100 transition-colors text-amber-700 hover:text-amber-900"
       >
         <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
