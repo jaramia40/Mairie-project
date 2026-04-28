@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
 ---
 
 <Layout
@@ -9,13 +10,7 @@ import Layout from '../layouts/Layout.astro';
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10">
     <header class="mb-8" data-animate>
-      <nav aria-label="Fil d'Ariane" class="mb-4">
-        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
-          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-gray-600">Accessibilité</li>
-        </ol>
-      </nav>
+      <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Accessibilité' }]} />
       <h1 class="text-3xl font-semibold text-navy">Déclaration d'accessibilité</h1>
       <p class="text-xs font-light mt-2 text-gray-500">Mise à jour : avril 2026</p>
     </header>

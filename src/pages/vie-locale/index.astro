@@ -1,0 +1,238 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ActualiteCard from '../../components/ui/ActualiteCard.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import AgendaCard from '../../components/ui/AgendaCard.astro';
+import AssoCard from '../../components/ui/AssoCard.astro';
+import { getCollection } from 'astro:content';
+
+const allActualites = await getCollection('actualites');
+const published = allActualites
+  .filter((a) => a.data.publie)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const allAgenda = await getCollection('agenda');
+const now = new Date();
+now.setHours(0, 0, 0, 0);
+const evenements = allAgenda
+  .filter((e) => e.data.publie && e.data.date >= now)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const allAssos = await getCollection('associations');
+const actives = allAssos.filter((a) => a.data.actif);
+const inactives = allAssos.filter((a) => !a.data.actif);
+---
+
+<Layout
+  title="Vie locale — Commune d'Artassenx"
+  description="Agenda, actualités et associations de la commune d'Artassenx."
+  canonical="https://artassenx.fr/vie-locale/"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+
+    <!-- En-tête -->
+    <header class="mb-8" data-animate>
+      <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Vie locale' }]} />
+      <h1 class="text-2xl sm:text-3xl font-semibold text-navy">Vie locale</h1>
+    </header>
+
+    <!-- Onglets -->
+    <div class="mb-8" data-animate>
+      <div class="flex gap-1 border-b border-gray-200">
+        <button
+          id="tab-agenda"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-agenda"
+          class="tab-btn px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-gold text-gold whitespace-nowrap"
+        >
+          Agenda
+          {evenements.length > 0 && (
+            <span class="ml-2 text-[10px] font-semibold bg-gold text-white rounded-full px-1.5 py-0.5">
+              {evenements.length}
+            </span>
+          )}
+        </button>
+        <button
+          id="tab-actualites"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-actualites"
+          class="tab-btn px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap"
+        >
+          Actualités
+          {published.length > 0 && (
+            <span class="ml-2 text-[10px] font-semibold bg-gray-200 text-gray-600 rounded-full px-1.5 py-0.5">
+              {published.length}
+            </span>
+          )}
+        </button>
+        <button
+          id="tab-associations"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-associations"
+          class="tab-btn px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap"
+        >
+          Associations
+          {actives.length > 0 && (
+            <span class="ml-2 text-[10px] font-semibold bg-gray-200 text-gray-600 rounded-full px-1.5 py-0.5">
+              {actives.length}
+            </span>
+          )}
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel Agenda -->
+    <div id="panel-agenda" role="tabpanel" aria-labelledby="tab-agenda">
+      {evenements.length > 0 ? (
+        <div class="flex flex-col gap-4">
+          {evenements.map((e) => (
+            <AgendaCard
+              titre={e.data.titre}
+              date={e.data.date}
+              heure={e.data.heure}
+              lieu={e.data.lieu}
+              description={e.data.description}
+              slug={e.slug}
+              image={e.data.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="py-16 text-center">
+          <p class="text-sm font-light text-gray-400">Aucun événement à venir pour le moment.</p>
+        </div>
+      )}
+    </div>
+
+    <!-- Panel Actualités -->
+    <div id="panel-actualites" role="tabpanel" aria-labelledby="tab-actualites" hidden>
+      {published.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {published.map((article) => (
+            <ActualiteCard
+              title={article.data.title}
+              date={article.data.date}
+              categorie={article.data.categorie}
+              extrait={article.data.extrait}
+              slug={article.slug}
+              image={article.data.image}
+              imageAlt={article.data.imageAlt}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="py-16 text-center">
+          <p class="text-sm font-light text-gray-400">Aucune actualité pour le moment.</p>
+        </div>
+      )}
+    </div>
+
+    <!-- Panel Associations -->
+    <div id="panel-associations" role="tabpanel" aria-labelledby="tab-associations" hidden>
+
+      {actives.length > 0 && (
+        <section aria-labelledby="actives-heading" class="mb-10">
+          <h2 id="actives-heading" class="text-base font-medium text-navy mb-5 pb-2 border-b border-gray-200">
+            Associations actives ({actives.length})
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {actives.map((asso) => (
+              <AssoCard
+                nom={asso.data.nom}
+                description={asso.data.description}
+                contact={asso.data.contact}
+                email={asso.data.email}
+                actif={asso.data.actif}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {inactives.length > 0 && (
+        <section aria-labelledby="inactives-heading" class="mb-10">
+          <h2 id="inactives-heading" class="text-base font-medium text-navy mb-5 pb-2 border-b border-gray-200">
+            Associations inactives ({inactives.length})
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {inactives.map((asso) => (
+              <AssoCard
+                nom={asso.data.nom}
+                description={asso.data.description}
+                contact={asso.data.contact}
+                email={asso.data.email}
+                actif={asso.data.actif}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {allAssos.length === 0 && (
+        <div class="py-16 text-center">
+          <p class="text-sm font-light text-gray-400">Aucune association enregistrée pour le moment.</p>
+        </div>
+      )}
+
+      <div class="mt-4 p-6 rounded-xl bg-amber-50 border border-amber-100 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="flex-1">
+          <h2 class="text-sm font-medium text-navy mb-1">Vous souhaitez créer une association ?</h2>
+          <p class="text-xs font-light text-gray-600 leading-relaxed">
+            La mairie peut vous accompagner dans les démarches de création et de déclaration en préfecture.
+          </p>
+        </div>
+        <a
+          href="/contact"
+          class="flex-shrink-0 text-sm font-medium text-gold border border-gold px-4 py-2 rounded hover:bg-gold hover:text-white transition-colors"
+          aria-label="Contacter la mairie pour créer une association"
+        >
+          Nous contacter
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  .tab-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-bottom-width: 2px;
+  }
+</style>
+
+<script>
+  function initTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('aria-controls');
+        tabs.forEach((t) => {
+          const isActive = t === tab;
+          t.setAttribute('aria-selected', String(isActive));
+          t.classList.toggle('border-gold', isActive);
+          t.classList.toggle('text-gold', isActive);
+          t.classList.toggle('border-transparent', !isActive);
+          t.classList.toggle('text-gray-400', !isActive);
+          const badge = t.querySelector('span');
+          if (badge) {
+            badge.classList.toggle('bg-gold', isActive);
+            badge.classList.toggle('text-white', isActive);
+            badge.classList.toggle('bg-gray-200', !isActive);
+            badge.classList.toggle('text-gray-600', !isActive);
+          }
+        });
+        panels.forEach((panel) => { panel.hidden = panel.id !== target; });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTabs);
+</script>

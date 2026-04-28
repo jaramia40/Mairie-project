@@ -1,0 +1,144 @@
+---
+interface Props {
+  titre: string;
+  date: Date;
+  heure: string;
+  lieu: string;
+  description: string;
+  slug: string;
+  image?: string;
+}
+
+const { titre, date, heure, lieu, description, slug, image } = Astro.props;
+
+const jour = date.toLocaleDateString('fr-FR', { day: 'numeric' });
+const mois = date.toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '');
+const annee = date.getFullYear();
+const dateComplete = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const dateISO = date.toISOString();
+---
+
+<article
+  data-animate
+  data-agenda-card
+  class="bg-white rounded-xl border border-gray-100 overflow-hidden card-shadow"
+  id={`agenda-${slug}`}
+>
+  <!-- En-tête cliquable -->
+  <button
+    type="button"
+    aria-expanded="false"
+    aria-controls={`detail-${slug}`}
+    class="agenda-toggle w-full flex flex-col sm:flex-row items-stretch text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+  >
+    <!-- Bloc date -->
+    <div class="flex-shrink-0 flex flex-col items-center justify-center bg-navy text-white px-5 py-4 sm:w-24">
+      <span class="text-2xl font-semibold leading-none">{jour}</span>
+      <span class="text-xs font-medium uppercase tracking-wider text-gold mt-0.5">{mois}</span>
+      <span class="text-[11px] font-light text-white/60 mt-0.5">{annee}</span>
+    </div>
+
+    <!-- Résumé -->
+    <div class="flex flex-1 items-center gap-4 px-4 py-4">
+      {image && (
+        <div class="hidden sm:block flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
+          <img src={image} alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" aria-hidden="true" />
+        </div>
+      )}
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold text-navy leading-snug truncate">{titre}</p>
+        <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-1 text-[11px] font-light" style="color:#6B6B68;">
+          <span class="flex items-center gap-1">
+            <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            {heure}
+          </span>
+          <span class="flex items-center gap-1">
+            <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {lieu}
+          </span>
+        </div>
+      </div>
+      <!-- Chevron -->
+      <svg class="agenda-chevron flex-shrink-0 text-gray-300 transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
+  </button>
+
+  <!-- Détail dépliable -->
+  <div
+    id={`detail-${slug}`}
+    class="agenda-detail overflow-hidden"
+    style="max-height: 0; transition: max-height 0.35s ease;"
+  >
+    <div class="border-t border-gray-100">
+      {image && (
+        <div class="w-full h-48 overflow-hidden">
+          <img src={image} alt={titre} class="w-full h-full object-cover" loading="lazy" decoding="async" />
+        </div>
+      )}
+      <div class="px-5 py-5 flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2 text-sm text-navy">
+            <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <time datetime={dateISO} class="font-medium capitalize">{dateComplete}</time>
+            <span class="text-gray-400">·</span>
+            <span class="font-light text-gray-500">{heure}</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-navy">
+            <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="font-medium">{lieu}</span>
+          </div>
+        </div>
+        <p class="text-sm font-light text-gray-600 leading-relaxed">{description}</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .card-shadow {
+    box-shadow: 0 1px 4px rgba(26,45,107,0.06);
+    transition: box-shadow 200ms ease;
+  }
+  .card-shadow:hover {
+    box-shadow: 0 4px 16px rgba(26,45,107,0.10);
+  }
+  .agenda-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .agenda-toggle:hover .agenda-chevron {
+    color: #C47A0A;
+  }
+</style>
+
+<script>
+  function initAgendaCards() {
+    document.querySelectorAll<HTMLElement>('[data-agenda-card]').forEach((card) => {
+      const toggle = card.querySelector<HTMLButtonElement>('.agenda-toggle');
+      const detail = card.querySelector<HTMLElement>('.agenda-detail');
+      const chevron = card.querySelector<SVGElement>('.agenda-chevron');
+      if (!toggle || !detail) return;
+
+      toggle.addEventListener('click', () => {
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+        if (isOpen) {
+          detail.style.maxHeight = '0';
+          toggle.setAttribute('aria-expanded', 'false');
+          chevron?.classList.remove('rotate-180');
+          card.classList.remove('ring-1', 'ring-gold/30');
+        } else {
+          detail.style.maxHeight = detail.scrollHeight + 'px';
+          toggle.setAttribute('aria-expanded', 'true');
+          chevron?.classList.add('rotate-180');
+          card.classList.add('ring-1', 'ring-gold/30');
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initAgendaCards);
+</script>

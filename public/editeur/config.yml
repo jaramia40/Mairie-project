@@ -19,6 +19,20 @@ collections:
           - { label: "Type", name: type, widget: select, options: [meteo, travaux, coupure] }
           - { label: "Message", name: message, widget: string }
 
+  - name: agenda
+    label: "📅 Agenda"
+    folder: src/content/agenda
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titre", name: titre, widget: string }
+      - { label: "Date", name: date, widget: datetime }
+      - { label: "Heure", name: heure, widget: string, hint: "Ex: 14h00 ou 14h00–16h00" }
+      - { label: "Lieu", name: lieu, widget: string }
+      - { label: "Description", name: description, widget: text }
+      - { label: "Image", name: image, widget: image, required: false }
+      - { label: "Publié ?", name: publie, widget: boolean, default: true }
+
   - name: actualites
     label: "📰 Actualités"
     folder: src/content/actualites

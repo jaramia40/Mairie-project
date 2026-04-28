@@ -42,4 +42,16 @@ const documents = defineCollection({
   }),
 });
 
-export const collections = { actualites, alertes, associations, documents };
+const agenda = defineCollection({
+  schema: z.object({
+    titre: z.string(),
+    date: z.date(),
+    heure: z.string(),
+    lieu: z.string(),
+    description: z.string(),
+    image: z.string().optional(),
+    publie: z.boolean().default(true),
+  }),
+});
+
+export const collections = { actualites, alertes, associations, documents, agenda };

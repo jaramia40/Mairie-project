@@ -13,6 +13,31 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
+[[redirects]]
+  from = "/associations"
+  to = "/vie-locale"
+  status = 301
+
+[[redirects]]
+  from = "/associations/"
+  to = "/vie-locale/"
+  status = 301
+
+[[redirects]]
+  from = "/actualites"
+  to = "/vie-locale"
+  status = 301
+
+[[redirects]]
+  from = "/actualites/"
+  to = "/vie-locale/"
+  status = 301
+
+[[redirects]]
+  from = "/actualites/:slug"
+  to = "/vie-locale/:slug"
+  status = 301
+
 [[headers]]
   for = "/editeur/*"
   [headers.values]

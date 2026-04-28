@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
 ---
 
 <Layout
@@ -8,33 +9,46 @@ import Layout from '../layouts/Layout.astro';
   canonical="https://artassenx.fr/vie-pratique/"
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+
     <!-- En-tête -->
-    <header class="mb-10" data-animate>
-      <nav aria-label="Fil d'Ariane" class="mb-4">
-        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
-          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-gray-600">Vie pratique</li>
-        </ol>
-      </nav>
+    <header class="mb-8" data-animate>
+      <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Vie pratique' }]} />
       <h1 class="text-2xl sm:text-3xl font-semibold text-navy mb-2">Vie pratique</h1>
       <p class="text-sm font-light max-w-xl" style="color: #6B6B68;">
         Tout ce dont vous avez besoin pour vos démarches du quotidien.
       </p>
     </header>
 
-    <!-- Horaires mairie -->
-    <section id="horaires" class="mb-10 scroll-mt-20" aria-labelledby="horaires-heading" data-animate>
-      <h2 id="horaires-heading" class="text-lg font-semibold text-navy mb-4 flex items-center gap-2">
-        <span class="w-7 h-7 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="8" r="6" stroke="#C47A0A" stroke-width="1.3"/>
-            <path d="M8 4V8L11 10" stroke="#C47A0A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        Horaires d'ouverture
-      </h2>
-      <div class="bg-white rounded-card border border-gray-100 overflow-hidden">
+    <!-- Onglets -->
+    <div class="mb-8" data-animate>
+      <div class="flex flex-wrap gap-1 border-b border-gray-200">
+        <button id="tab-horaires" role="tab" aria-selected="true" aria-controls="panel-horaires"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-gold text-gold whitespace-nowrap">
+          Horaires
+        </button>
+        <button id="tab-demarches" role="tab" aria-selected="false" aria-controls="panel-demarches"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Démarches
+        </button>
+        <button id="tab-enfance" role="tab" aria-selected="false" aria-controls="panel-enfance"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Enfance & École
+        </button>
+        <button id="tab-urgences" role="tab" aria-selected="false" aria-controls="panel-urgences"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Urgences
+        </button>
+        <button id="tab-liens" role="tab" aria-selected="false" aria-controls="panel-liens"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Liens utiles
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel Horaires -->
+    <div id="panel-horaires" role="tabpanel" aria-labelledby="tab-horaires">
+      <p class="text-sm font-light text-gray-500 mb-5">Retrouvez ici les horaires d'ouverture de la mairie ainsi que les informations utiles pour contacter le secrétariat.</p>
+      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <table class="w-full text-sm" role="table">
           <caption class="sr-only">Horaires d'ouverture de la mairie d'Artassenx</caption>
           <tbody>
@@ -60,19 +74,33 @@ import Layout from '../layouts/Layout.astro';
       <p class="mt-3 text-xs font-light text-gray-500">
         * Sauf jours fériés. Des permanences spéciales peuvent être organisées sur demande.
       </p>
-    </section>
 
-    <!-- Démarches administratives -->
-    <section class="mb-10" aria-labelledby="demarches-heading" data-animate>
-      <h2 id="demarches-heading" class="text-lg font-semibold text-navy mb-4 flex items-center gap-2">
-        <span class="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="2" y="2" width="12" height="12" rx="2" stroke="#1A2D6B" stroke-width="1.3"/>
-            <path d="M5 7H11M5 10H8" stroke="#1A2D6B" stroke-width="1.3" stroke-linecap="round"/>
-          </svg>
-        </span>
-        Démarches administratives
-      </h2>
+      <!-- Coordonnées -->
+      <div class="mt-6 bg-white rounded-xl border border-gray-100 p-5 flex flex-col gap-3">
+        <div class="flex items-start gap-3 text-sm">
+          <svg class="flex-shrink-0 mt-0.5 text-gold" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="font-light text-gray-700">431 route de Bascons, 40090 Artassenx</span>
+        </div>
+        <div class="flex items-center gap-3 text-sm">
+          <svg class="flex-shrink-0 text-gold" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.4a16 16 0 0 0 7.69 7.69l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+33558440399" class="font-light text-gray-700 hover:text-gold transition-colors" aria-label="Appeler la mairie">05 58 44 03 99</a>
+        </div>
+        <div class="flex items-center gap-3 text-sm">
+          <svg class="flex-shrink-0 text-gold" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:mairie@artassenx.fr" class="font-light text-gray-700 hover:text-gold transition-colors" aria-label="Écrire à la mairie">mairie@artassenx.fr</a>
+        </div>
+        <div class="pt-1">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-navy text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-navy-dark transition-colors">
+            Contacter la mairie
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel Démarches -->
+    <div id="panel-demarches" role="tabpanel" aria-labelledby="tab-demarches" hidden>
+      <p class="text-sm font-light text-gray-500 mb-5">Retrouvez les principales démarches administratives utiles aux habitants.<br/>Pour les démarches nationales, les liens officiels vous redirigent vers les services de l'administration française.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
           {
@@ -89,28 +117,30 @@ import Layout from '../layouts/Layout.astro';
           },
           {
             titre: 'Listes électorales',
-            desc: 'Inscription sur les listes électorales possible en mairie ou sur internet. Délai : 6 semaines avant le scrutin.',
+            desc: 'Les nouveaux habitants peuvent demander leur inscription sur les listes électorales de la commune, en mairie ou en ligne.',
             lien: 'https://www.service-public.fr/particuliers/vosdroits/F1444',
             label: "Inscription sur les listes",
           },
           {
             titre: 'Urbanisme & Permis',
-            desc: 'Déclarations de travaux, permis de construire et certificats d\'urbanisme. Le PLU est consultable en mairie.',
+            desc: 'Déclarations préalables de travaux, permis de construire, certificats d\'urbanisme : la mairie peut vous orienter avant le dépôt de votre dossier.',
+            lien: null,
+            label: null,
+          },
+          {
+            titre: 'Recensement citoyen',
+            desc: 'Les jeunes Français doivent se faire recenser à partir de 16 ans. Cette démarche permet notamment d\'être convoqué à la Journée Défense et Citoyenneté.',
             lien: null,
             label: null,
           },
         ].map(({ titre, desc, lien, label }) => (
-          <div class="bg-white rounded-card border border-gray-100 p-5">
+          <div class="bg-white rounded-xl border border-gray-100 p-5">
             <h3 class="text-sm font-medium text-navy mb-2">{titre}</h3>
             <p class="text-xs font-light text-gray-600 leading-relaxed mb-3">{desc}</p>
             {lien && label && (
-              <a
-                href={lien}
-                target="_blank"
-                rel="noopener noreferrer"
+              <a href={lien} target="_blank" rel="noopener noreferrer"
                 aria-label={`${label} (nouvelle fenêtre)`}
-                class="text-xs font-medium text-gold hover:text-gold-light transition-colors inline-flex items-center gap-1"
-              >
+                class="text-xs font-medium text-gold hover:text-gold-light transition-colors inline-flex items-center gap-1">
                 {label}
                 <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none">
                   <path d="M2 8L8 2M5 2H8V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -118,32 +148,110 @@ import Layout from '../layouts/Layout.astro';
               </a>
             )}
             {!lien && (
-              <a
-                href="/contact"
-                class="text-xs font-medium text-gold hover:text-gold-light transition-colors"
-                aria-label={`Contacter la mairie pour : ${titre}`}
-              >
+              <a href="/contact" class="text-xs font-medium text-gold hover:text-gold-light transition-colors"
+                aria-label={`Contacter la mairie pour : ${titre}`}>
                 Contacter la mairie →
               </a>
             )}
           </div>
         ))}
       </div>
-    </section>
+    </div>
 
-    <!-- Numéros utiles -->
-    <section id="urgences" class="mb-10 scroll-mt-20" aria-labelledby="urgences-heading" data-animate>
-      <h2 id="urgences-heading" class="text-lg font-semibold text-navy mb-4 flex items-center gap-2">
-        <span class="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 2L2 14H14L8 2Z" stroke="#991B1B" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 6V9" stroke="#991B1B" stroke-width="1.3" stroke-linecap="round"/>
-            <circle cx="8" cy="11.5" r="0.6" fill="#991B1B"/>
-          </svg>
-        </span>
-        Numéros d'urgence
-      </h2>
-      <div class="bg-white rounded-card border border-gray-100 overflow-hidden">
+    <!-- Panel Enfance & École -->
+    <div id="panel-enfance" role="tabpanel" aria-labelledby="tab-enfance" hidden>
+      <p class="text-sm font-light text-gray-500 mb-5">Retrouvez les informations utiles pour les familles !<br/>Informations relatives aux services périscolaires de la commune d'Artassenx.</p>
+
+      <div class="flex flex-col gap-6">
+
+        <!-- Cantine -->
+        <div class="bg-white rounded-xl border border-gray-100 p-5">
+          <h2 class="text-sm font-semibold text-navy mb-3 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-emerald-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </span>
+            Cantine scolaire
+          </h2>
+          <div class="text-sm font-light text-gray-600 leading-relaxed space-y-2">
+            <p>La cantine est ouverte les lundis, mardis, jeudis et vendredis le midi, les jours d'école.</p>
+            <p>Les menus sont élaborés dans le respect des recommandations nutritionnelles et affichés chaque semaine à l'école et en mairie.</p>
+            <div class="mt-3 flex flex-col gap-1 text-xs">
+              <div class="flex justify-between py-1.5 border-b border-gray-100">
+                <span class="font-medium text-navy">Tarif repas enfant</span>
+                <span class="text-gray-500">3,50 €</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-gray-100">
+                <span class="font-medium text-navy">Inscription</span>
+                <span class="text-gray-500">En mairie ou auprès de l'école</span>
+              </div>
+              <div class="flex justify-between py-1.5">
+                <span class="font-medium text-navy">Réservation</span>
+                <span class="text-gray-500">La veille avant 9h00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Garderie -->
+        <div class="bg-white rounded-xl border border-gray-100 p-5">
+          <h2 class="text-sm font-semibold text-navy mb-3 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-blue-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A2D6B" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </span>
+            Garderie périscolaire
+          </h2>
+          <div class="text-sm font-light text-gray-600 leading-relaxed space-y-2">
+            <p>La garderie périscolaire accueille les enfants avant et après les heures de classe.</p>
+            <div class="mt-3 flex flex-col gap-1 text-xs">
+              <div class="flex justify-between py-1.5 border-b border-gray-100">
+                <span class="font-medium text-navy">Matin</span>
+                <span class="text-gray-500">7h30 – 8h45</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-gray-100">
+                <span class="font-medium text-navy">Soir</span>
+                <span class="text-gray-500">16h30 – 18h30</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-gray-100">
+                <span class="font-medium text-navy">Tarif</span>
+                <span class="text-gray-500">1,50 € / session</span>
+              </div>
+              <div class="flex justify-between py-1.5">
+                <span class="font-medium text-navy">Inscription</span>
+                <span class="text-gray-500">En mairie avant le vendredi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contacts -->
+        <div class="bg-white rounded-xl border border-gray-100 p-5">
+          <h2 class="text-sm font-semibold text-navy mb-3 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-amber-50 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C47A0A" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.4a16 16 0 0 0 7.69 7.69l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            Contacts
+          </h2>
+          <div class="flex flex-col gap-3 text-sm">
+            <div>
+              <p class="font-medium text-navy">École primaire d'Artassenx</p>
+              <p class="font-light text-gray-500 text-xs mt-0.5">Route de l'école, 40090 Artassenx</p>
+              <a href="tel:+33558440001" class="text-xs text-gold hover:text-gold-dark transition-colors mt-0.5 inline-block">05 58 44 00 01</a>
+            </div>
+            <div class="border-t border-gray-100 pt-3">
+              <p class="font-medium text-navy">Mairie — service scolaire</p>
+              <p class="font-light text-gray-500 text-xs mt-0.5">Pour toute inscription ou renseignement</p>
+              <a href="tel:+33558440399" class="text-xs text-gold hover:text-gold-dark transition-colors mt-0.5 inline-block">05 58 44 03 99</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Panel Urgences -->
+    <div id="panel-urgences" role="tabpanel" aria-labelledby="tab-urgences" hidden>
+      <p class="text-sm font-light text-gray-500 mb-5">En cas d'urgence vitale, composez immédiatement le <strong class="font-semibold text-navy">15</strong> ou le <strong class="font-semibold text-navy">112</strong>.</p>
+      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden">
         {[
           { label: 'SAMU', num: '15' },
           { label: 'Pompiers', num: '18' },
@@ -153,40 +261,32 @@ import Layout from '../layouts/Layout.astro';
         ].map(({ label, num }, i) => (
           <div class={`flex items-center justify-between px-5 py-3 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
             <span class="text-sm font-light text-gray-700">{label}</span>
-            <a
-              href={`tel:${num}`}
+            <a href={`tel:${num}`}
               class="text-lg font-semibold text-navy hover:text-gold transition-colors"
-              aria-label={`Appeler le ${label} : ${num}`}
-            >
+              aria-label={`Appeler le ${label} : ${num}`}>
               {num}
             </a>
           </div>
         ))}
       </div>
-    </section>
+    </div>
 
-    <!-- Liens utiles -->
-    <section data-animate aria-labelledby="liens-heading">
-      <h2 id="liens-heading" class="text-lg font-semibold text-navy mb-4">Liens utiles</h2>
+    <!-- Panel Liens utiles -->
+    <div id="panel-liens" role="tabpanel" aria-labelledby="tab-liens" hidden>
       <ul class="flex flex-col gap-2" role="list">
         {[
           { label: 'Service-public.fr', href: 'https://www.service-public.fr', desc: 'Démarches administratives en ligne' },
           { label: 'Département des Landes', href: 'https://www.landes.fr', desc: 'Conseil départemental des Landes' },
           { label: 'Préfecture des Landes', href: 'https://www.landes.gouv.fr', desc: 'Préfecture et sous-préfectures' },
           { label: 'Légifrance', href: 'https://www.legifrance.gouv.fr', desc: 'Droit français en ligne' },
+          { label: 'Communauté de communes du Pays Grenadois', href: 'https://cc-paysgrenadois.fr/', desc: 'Intercommunalité dont fait partie Artassenx' },
         ].map(({ label, href, desc }) => (
           <li>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
+            <a href={href} target="_blank" rel="noopener noreferrer"
               aria-label={`${label} — ${desc} (nouvelle fenêtre)`}
-              class="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-100 hover:border-gold/30 hover:bg-amber-50/30 transition-colors group"
-            >
+              class="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-100 hover:border-gold/30 hover:bg-amber-50/30 transition-colors group">
               <div>
-                <span class="text-sm font-medium text-navy group-hover:text-gold transition-colors">
-                  {label}
-                </span>
+                <span class="text-sm font-medium text-navy group-hover:text-gold transition-colors">{label}</span>
                 <p class="text-xs font-light text-gray-500 mt-0.5">{desc}</p>
               </div>
               <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-gray-300 group-hover:text-gold transition-colors flex-shrink-0">
@@ -196,6 +296,57 @@ import Layout from '../layouts/Layout.astro';
           </li>
         ))}
       </ul>
-    </section>
+    </div>
+
   </div>
 </Layout>
+
+<style>
+  .tab-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-bottom-width: 2px;
+  }
+</style>
+
+<script>
+  function initTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+
+    function activateTab(targetId: string) {
+      tabs.forEach((t) => {
+        const isActive = t.getAttribute('aria-controls') === targetId;
+        t.setAttribute('aria-selected', String(isActive));
+        t.classList.toggle('border-gold', isActive);
+        t.classList.toggle('text-gold', isActive);
+        t.classList.toggle('border-transparent', !isActive);
+        t.classList.toggle('text-gray-400', !isActive);
+      });
+      panels.forEach((panel) => { panel.hidden = panel.id !== targetId; });
+    }
+
+    // Activer l'onglet selon le hash de l'URL
+    const hashToPanel: Record<string, string> = {
+      demarches: 'panel-demarches',
+      enfance: 'panel-enfance',
+      urgences: 'panel-urgences',
+      liens: 'panel-liens',
+    };
+    const hash = window.location.hash.replace('#', '');
+    if (hash && hashToPanel[hash]) {
+      activateTab(hashToPanel[hash]);
+    }
+
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('aria-controls');
+        if (target) activateTab(target);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTabs);
+</script>

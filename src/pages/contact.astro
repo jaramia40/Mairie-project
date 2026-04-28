@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
 ---
 
 <Layout
@@ -10,13 +11,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
     <!-- En-tête -->
     <header class="mb-10" data-animate>
-      <nav aria-label="Fil d'Ariane" class="mb-4">
-        <ol class="flex items-center gap-2 text-xs font-normal text-gray-400">
-          <li><a href="/" class="hover:text-gold transition-colors">Accueil</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="text-gray-600">Contact</li>
-        </ol>
-      </nav>
+      <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Contact' }]} />
       <h1 class="text-2xl sm:text-3xl font-semibold text-navy mb-2">Contact</h1>
       <p class="text-sm font-light max-w-xl" style="color: #6B6B68;">
         Nous répondons aux courriels dans un délai de 3 jours ouvrés. Pour les urgences, privilégiez le téléphone.

@@ -1,0 +1,51 @@
+---
+interface Props {
+  items: { label: string; href?: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav aria-label="Fil d'Ariane" class="mb-4">
+  <ol class="flex items-center gap-2 text-xs font-normal text-gray-400 flex-wrap">
+    <li>
+      <button
+        id="back-btn"
+        type="button"
+        aria-label="Page précédente"
+        hidden
+        class="flex items-center gap-1 text-gray-400 hover:text-navy transition-colors focus-visible:outline-none"
+      >
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Retour
+      </button>
+    </li>
+    <li aria-hidden="true" class="back-sep hidden text-gray-200">·</li>
+    {items.map((item, i) => (
+      <>
+        {i === 0 ? null : <li aria-hidden="true">/</li>}
+        {i < items.length - 1 ? (
+          <li><a href={item.href} class="hover:text-gold transition-colors">{item.label}</a></li>
+        ) : (
+          <li aria-current="page" class="text-gray-600">{item.label}</li>
+        )}
+      </>
+    ))}
+  </ol>
+</nav>
+
+<script>
+  function initBack() {
+    const btn = document.getElementById('back-btn');
+    const sep = document.querySelector('.back-sep');
+    if (!btn) return;
+
+    if (window.history.length > 1 && document.referrer && document.referrer.includes(window.location.hostname)) {
+      btn.hidden = false;
+      sep?.classList.remove('hidden');
+      btn.addEventListener('click', () => history.back(), { once: true });
+    }
+  }
+  document.addEventListener('astro:page-load', initBack);
+</script>
