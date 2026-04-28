@@ -41,7 +41,7 @@ const { items } = Astro.props;
     const sep = document.querySelector('.back-sep');
     if (!btn) return;
 
-    if (window.history.length > 1 && document.referrer && document.referrer.includes(window.location.hostname)) {
+    if (window.history.length > 1) {
       btn.hidden = false;
       sep?.classList.remove('hidden');
       btn.addEventListener('click', () => history.back(), { once: true });
