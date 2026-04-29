@@ -77,6 +77,12 @@ const {
       }
 
       document.addEventListener('astro:page-load', initAnimations);
+
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll<HTMLElement>('.map-shield').forEach((shield) => {
+          shield.addEventListener('click', () => shield.remove(), { once: true });
+        });
+      });
     </script>
   </body>
 </html>

@@ -1,0 +1,271 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+---
+
+<Layout
+  title="Salle des fêtes — Commune d'Artassenx"
+  description="Réservez la salle des fêtes d'Artassenx : présentation, tarifs, documents et modalités de réservation."
+  canonical="https://artassenx.fr/salle-des-fetes/"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+
+    <!-- En-tête -->
+    <header class="mb-8" data-animate>
+      <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Salle des fêtes' }]} />
+      <h1 class="text-2xl sm:text-3xl font-semibold text-navy">Salle des fêtes</h1>
+    </header>
+
+    <!-- Onglets -->
+    <div class="mb-8" data-animate>
+      <div class="flex flex-wrap gap-1 border-b border-gray-200">
+        <button id="tab-presentation" role="tab" aria-selected="true" aria-controls="panel-presentation"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-gold text-gold whitespace-nowrap">
+          Présentation
+        </button>
+        <button id="tab-tarifs" role="tab" aria-selected="false" aria-controls="panel-tarifs"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Tarifs
+        </button>
+        <button id="tab-documents" role="tab" aria-selected="false" aria-controls="panel-documents"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Documents
+        </button>
+        <button id="tab-reservation" role="tab" aria-selected="false" aria-controls="panel-reservation"
+          class="tab-btn px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px border-transparent text-gray-400 hover:text-navy whitespace-nowrap">
+          Comment réserver
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel Présentation -->
+    <div id="panel-presentation" role="tabpanel" aria-labelledby="tab-presentation">
+      <div class="flex flex-col gap-6">
+
+        <div class="bg-white rounded-xl border border-gray-100 overflow-hidden" data-animate>
+          <div class="h-56 overflow-hidden">
+            <img src="/images/banniere.jpg" alt="Salle des fêtes d'Artassenx" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h2 class="text-base font-semibold text-navy mb-3">Présentation de la salle des fêtes</h2>
+            <div class="text-sm font-light text-gray-600 leading-relaxed flex flex-col gap-3">
+              <p>La salle des fêtes d'Artassenx accueille les moments importants de la vie locale : repas, réunions, animations associatives, fêtes familiales ou événements communaux.</p>
+              <p>Située au cœur de la commune, elle offre un espace convivial pouvant être loué selon les conditions définies par la mairie.</p>
+              <p>Vous trouverez sur cette page les principales informations concernant la salle.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-animate>
+
+          <div class="bg-white rounded-xl border border-gray-100 p-5">
+            <h3 class="text-sm font-semibold text-navy mb-3 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1A2D6B" stroke-width="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </span>
+              Caractéristiques
+            </h3>
+            <ul class="text-xs font-light text-gray-600 space-y-2">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Capacité : 150 personnes</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Surface : 200 m²</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Parking gratuit sur place</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Accès PMR</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Sanitaires hommes / femmes</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-100 p-5">
+            <h3 class="text-sm font-semibold text-navy mb-3 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="1.8" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Équipements
+            </h3>
+            <ul class="text-xs font-light text-gray-600 space-y-2">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Cuisine équipée (four, plaques, frigo)</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Tables et chaises incluses</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Climatisation / chauffage</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span>Espace extérieur</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-sm font-light text-gray-600" data-animate>
+          <p><strong class="font-medium text-navy">Adresse :</strong> Chemin de la Salle des Fêtes, 40090 Artassenx</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Panel Tarifs -->
+    <div id="panel-tarifs" role="tabpanel" aria-labelledby="tab-tarifs" hidden>
+      <p class="text-sm font-light text-gray-500 mb-5">Tarifs en vigueur pour l'année 2026. Une caution est demandée à la réservation.</p>
+
+      <div class="flex flex-col gap-4">
+
+        <div class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div class="px-5 py-3 bg-navy">
+            <h2 class="text-sm font-semibold text-white">Habitants de la commune</h2>
+          </div>
+          <table class="w-full text-sm">
+            <tbody>
+              {[
+                ['Week-end (ven. soir au dim.)', '300 €'],
+                ['Journée (8h–23h)', '150 €'],
+                ['Demi-journée (4h max)', '80 €'],
+                ['Caution', '500 €'],
+              ].map(([label, prix], i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td class="px-5 py-3 font-light text-gray-700">{label}</td>
+                  <td class="px-5 py-3 font-semibold text-navy text-right">{prix}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div class="px-5 py-3 bg-gray-700">
+            <h2 class="text-sm font-semibold text-white">Extérieurs à la commune</h2>
+          </div>
+          <table class="w-full text-sm">
+            <tbody>
+              {[
+                ['Week-end (ven. soir au dim.)', '500 €'],
+                ['Journée (8h–23h)', '250 €'],
+                ['Demi-journée (4h max)', '130 €'],
+                ['Caution', '800 €'],
+              ].map(([label, prix], i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td class="px-5 py-3 font-light text-gray-700">{label}</td>
+                  <td class="px-5 py-3 font-semibold text-navy text-right">{prix}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-xs font-light text-gray-400">* Les tarifs incluent l'utilisation de la cuisine. La caution est restituée après état des lieux de sortie conforme.</p>
+
+      </div>
+    </div>
+
+    <!-- Panel Documents -->
+    <div id="panel-documents" role="tabpanel" aria-labelledby="tab-documents" hidden>
+      <p class="text-sm font-light text-gray-500 mb-5">Documents à consulter avant toute réservation.</p>
+
+      <div class="flex flex-col gap-3">
+        {[
+          { titre: 'Règlement intérieur de la salle des fêtes', desc: 'Conditions d\'utilisation, horaires, responsabilités' },
+          { titre: 'Contrat de location', desc: 'À compléter et retourner signé en mairie' },
+          { titre: 'État des lieux type', desc: 'Document remis lors de la remise des clés' },
+        ].map(({ titre, desc }) => (
+          <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100">
+            <svg class="flex-shrink-0 text-gold" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-navy">{titre}</p>
+              <p class="text-xs font-light text-gray-400 mt-0.5">{desc}</p>
+            </div>
+            <span class="text-xs font-light text-gray-300 flex-shrink-0">PDF à venir</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-5 text-xs font-light text-gray-400">Les documents seront disponibles en téléchargement prochainement. En attendant, contactez la mairie.</p>
+    </div>
+
+    <!-- Panel Réservation -->
+    <div id="panel-reservation" role="tabpanel" aria-labelledby="tab-reservation" hidden>
+      <p class="text-sm font-light text-gray-500 mb-6">La réservation se fait directement en mairie. Voici les étapes à suivre.</p>
+
+      <div class="flex flex-col gap-4">
+
+        {[
+          {
+            num: '1',
+            titre: 'Vérifier la disponibilité',
+            desc: 'Contactez la mairie par téléphone ou par email pour vérifier que la date souhaitée est disponible.',
+          },
+          {
+            num: '2',
+            titre: 'Compléter le dossier',
+            desc: 'Remplissez le contrat de location et joignez une copie de pièce d\'identité et une attestation d\'assurance.',
+          },
+          {
+            num: '3',
+            titre: 'Déposer le dossier en mairie',
+            desc: 'Remettez le dossier complet en mairie avec le règlement et le chèque de caution. La réservation est confirmée à réception.',
+          },
+          {
+            num: '4',
+            titre: 'Récupérer les clés',
+            desc: 'Les clés sont remises le jour de la location en mairie, après signature de l\'état des lieux d\'entrée.',
+          },
+        ].map(({ num, titre, desc }) => (
+          <div class="flex gap-4 bg-white rounded-xl border border-gray-100 p-5">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-navy flex items-center justify-center text-white text-sm font-semibold">
+              {num}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-navy mb-1">{titre}</p>
+              <p class="text-xs font-light text-gray-600 leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+
+        <div class="mt-2 p-5 bg-amber-50 border border-amber-100 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-navy mb-1">Une question sur la réservation ?</p>
+            <p class="text-xs font-light text-gray-600">La secrétariat de mairie est disponible aux horaires d'ouverture habituels.</p>
+          </div>
+          <a
+            href="/contact"
+            class="flex-shrink-0 text-sm font-medium text-gold border border-gold px-4 py-2 rounded hover:bg-gold hover:text-white transition-colors"
+          >
+            Contacter la mairie
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  .tab-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-bottom-width: 2px;
+  }
+</style>
+
+<script>
+  function initTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+
+    function activateTab(targetId: string) {
+      tabs.forEach((t) => {
+        const isActive = t.getAttribute('aria-controls') === targetId;
+        t.setAttribute('aria-selected', String(isActive));
+        t.classList.toggle('border-gold', isActive);
+        t.classList.toggle('text-gold', isActive);
+        t.classList.toggle('border-transparent', !isActive);
+        t.classList.toggle('text-gray-400', !isActive);
+      });
+      panels.forEach((panel) => { panel.hidden = panel.id !== targetId; });
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('aria-controls');
+        if (target) activateTab(target);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTabs);
+</script>

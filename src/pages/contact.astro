@@ -82,19 +82,41 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
           <!-- Objet -->
           <div class="flex flex-col gap-1.5">
             <label for="objet" class="text-sm font-medium text-navy">
-              Objet de votre message
+              Objet de votre message <span aria-hidden="true" class="text-red-500">*</span>
             </label>
             <select
               id="objet"
               name="objet"
+              required
+              aria-required="true"
+              aria-describedby="objet-error"
               class="border border-gray-200 rounded px-3 py-2.5 text-sm font-normal text-gray-800 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 bg-white transition-colors"
             >
-              <option value="general">Question générale</option>
-              <option value="voirie">Signalement voirie</option>
-              <option value="association">Association</option>
-              <option value="urbanisme">Urbanisme / Permis</option>
-              <option value="autre">Autre</option>
+              <option value="" disabled selected>Choisissez un objet</option>
+              <optgroup label="Mairie & démarches">
+                <option value="etat-civil">État civil (naissance, mariage, décès)</option>
+                <option value="listes-electorales">Listes électorales</option>
+                <option value="recensement">Recensement citoyen</option>
+                <option value="urbanisme">Urbanisme / Permis de construire</option>
+                <option value="documents">Comptes-rendus / Documents officiels</option>
+              </optgroup>
+              <optgroup label="Services municipaux">
+                <option value="salle-fetes">Réservation salle des fêtes</option>
+                <option value="cantine">Cantine scolaire</option>
+                <option value="periscolaire">Garderie / Périscolaire</option>
+                <option value="voirie">Signalement voirie / éclairage</option>
+              </optgroup>
+              <optgroup label="Vie locale">
+                <option value="association">Associations</option>
+                <option value="agenda">Agenda / Événements</option>
+                <option value="actualites">Actualités</option>
+              </optgroup>
+              <optgroup label="Autre">
+                <option value="general">Question générale</option>
+                <option value="autre">Autre</option>
+              </optgroup>
             </select>
+            <span id="objet-error" role="alert" class="text-xs text-red-600 hidden" aria-live="polite"></span>
           </div>
 
           <!-- Message -->
@@ -189,7 +211,7 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
           <!-- Carte -->
           <div class="mt-5 pt-5 border-t border-gray-200">
             <h3 class="text-xs font-medium text-navy mb-3">Localisation</h3>
-            <div class="rounded-lg overflow-hidden border border-gray-100" style="height: 180px;">
+            <div class="relative rounded-lg overflow-hidden border border-gray-100" style="height: 180px;">
               <iframe
                 title="Localisation de la mairie d'Artassenx"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4190%2C43.8328%2C-0.3790%2C43.8528&layer=mapnik&marker=43.842826%2C-0.399048"
@@ -199,6 +221,9 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
                 loading="lazy"
                 referrerpolicy="no-referrer"
               ></iframe>
+              <div class="map-shield absolute inset-0 z-10 cursor-pointer flex items-end justify-center pb-2">
+                <span class="text-[10px] bg-white/90 text-gray-500 px-2 py-0.5 rounded-full shadow-sm">Cliquer pour interagir</span>
+              </div>
             </div>
             <a
               href="https://www.openstreetmap.org/?mlat=43.842826&mlon=-0.399048#map=16/43.842826/-0.399048"
@@ -249,6 +274,7 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
     const fields: Array<{ id: string; errorId: string; msg: string }> = [
       { id: 'nom', errorId: 'nom-error', msg: 'Veuillez saisir votre nom.' },
       { id: 'email', errorId: 'email-error', msg: 'Veuillez saisir une adresse email valide.' },
+      { id: 'objet', errorId: 'objet-error', msg: 'Veuillez choisir un objet.' },
       { id: 'message', errorId: 'message-error', msg: 'Veuillez saisir votre message.' },
     ];
 
